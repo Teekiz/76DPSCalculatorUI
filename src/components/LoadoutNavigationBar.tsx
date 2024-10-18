@@ -1,35 +1,28 @@
-import React, { useContext } from "react"
+import { useContext } from "react"
 import { LoadoutContext } from "../contexts/LoadoutContext";
+import Nav from 'react-bootstrap/Nav';
 
 export default function LoadoutNavigationBar()
 {
     const { activeLoadoutTab, setActiveLoadoutTab } = useContext(LoadoutContext);
     const loadouts = ["Loadout #1", "Loadout #2", "Loadout #3", "New Loadout"];
 
-    const handleTabClick = (tabNumber: number) => {
-      setActiveLoadoutTab(tabNumber);
-    };
-    //used to determine if the name should include active or not (for bootstrap).
-    const getClassName = (tabNumber : number) => {
-       return activeLoadoutTab === tabNumber ? 'nav-link active' : 'nav-link';
+    const handleTabClick = (index : number) => {
+      setActiveLoadoutTab(index);
     };
     
     return (
-        <nav aria-label="Loadout navigation">
-            <ul className="nav nav-tabs" role="tablist">
-              {loadouts.map((loadout, index) => (
-                    <li className="nav-item" key={index} role="presentation">
-                        <a className={getClassName(index)}
-                        onClick={() => handleTabClick(index)}
-                        aria-selected={activeLoadoutTab === index} //the tab which is active
-                        aria-controls={`loadout-${index}`}
-                        href={`#loadout-${index}`}
-                        tabIndex={0} role="tab">
-                        { loadout }
-                        </a>
-                    </li>
-                ))}
-            </ul>
-        </nav>
-    );
+        <Nav variant="tabs" activeKey={activeLoadoutTab.toString()}>
+          {loadouts.map((loadout, index) => (
+            <Nav.Item key={index}>
+                <Nav.Link
+                    eventKey={index.toString()}
+                    onClick={() => handleTabClick(index)}
+                    aria-current={activeLoadoutTab === index ? "page" : undefined}>
+                    {loadout}
+                </Nav.Link>
+            </Nav.Item>
+          ))}
+        </Nav>
+      );
 }

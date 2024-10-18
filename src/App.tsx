@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-//mport Weapon from './components/Weapon';
 import LoadoutNavigationBar from './components/LoadoutNavigationBar';
 import LoadoutDataAccordion from './components/LoadoutDataAccordion';
 import { LoadoutContext } from './contexts/LoadoutContext'; 
@@ -8,7 +7,7 @@ import { LoadoutContext } from './contexts/LoadoutContext';
 function App()
 {
   const [activeLoadoutTab, setActiveLoadoutTab] = useState<number>(0);
-  
+
   return (
     <div className='App'>
       <LoadoutContext.Provider value={{activeLoadoutTab, setActiveLoadoutTab}}>
