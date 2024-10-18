@@ -1,9 +1,11 @@
-import React, { useState } from "react"
+import React, { useContext } from "react"
+import { LoadoutContext } from "../contexts/LoadoutContext";
 
 export default function LoadoutNavigationBar()
 {
-    const loadouts = ["Loadout #1", "Loadout #2", "Loadout #3", "New Loadout"]
-    const [activeLoadoutTab, setActiveLoadoutTab] = useState<number>(0)
+    const { activeLoadoutTab, setActiveLoadoutTab } = useContext(LoadoutContext);
+    const loadouts = ["Loadout #1", "Loadout #2", "Loadout #3", "New Loadout"];
+
     const handleTabClick = (tabNumber: number) => {
       setActiveLoadoutTab(tabNumber);
     };
@@ -13,15 +15,21 @@ export default function LoadoutNavigationBar()
     };
     
     return (
-        <ul className="nav nav-tabs">
-          {loadouts.map((loadout, index) => (
-                <li className="nav-item" key={index}>
-                    <a className={getClassName(index)}
-                        onClick={() => handleTabClick(index)}>
+        <nav aria-label="Loadout navigation">
+            <ul className="nav nav-tabs" role="tablist">
+              {loadouts.map((loadout, index) => (
+                    <li className="nav-item" key={index} role="presentation">
+                        <a className={getClassName(index)}
+                        onClick={() => handleTabClick(index)}
+                        aria-selected={activeLoadoutTab === index} //the tab which is active
+                        aria-controls={`loadout-${index}`}
+                        href={`#loadout-${index}`}
+                        tabIndex={0} role="tab">
                         { loadout }
-                    </a>
-                </li>
-            ))}
-        </ul>
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </nav>
     );
 }

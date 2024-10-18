@@ -1,9 +1,22 @@
-import Weapon from './components/Weapon';
+import React, { useState } from 'react';
+
+//mport Weapon from './components/Weapon';
 import LoadoutNavigationBar from './components/LoadoutNavigationBar';
+import LoadoutDataAccordion from './components/LoadoutDataAccordion';
+import { LoadoutContext } from './contexts/LoadoutContext'; 
 
 function App()
 {
-  return <div><LoadoutNavigationBar /></div>
+  const [activeLoadoutTab, setActiveLoadoutTab] = useState<number>(0);
+  
+  return (
+    <div className='App'>
+      <LoadoutContext.Provider value={{activeLoadoutTab, setActiveLoadoutTab}}>
+        <LoadoutNavigationBar />
+        <LoadoutDataAccordion />
+      </LoadoutContext.Provider>
+    </div>
+  );
 }
 
 export default App;
