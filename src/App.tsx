@@ -9,7 +9,7 @@ function App()
   const [activeLoadoutTab, setActiveLoadoutTab] = useState<number>(0);
 
   return (
-    <div className='App'>
+    <div className='App' data-bs-theme="dark">
       <LoadoutContext.Provider value={{activeLoadoutTab, setActiveLoadoutTab}}>
         <LoadoutNavigationBar />
         <LoadoutDataAccordion />

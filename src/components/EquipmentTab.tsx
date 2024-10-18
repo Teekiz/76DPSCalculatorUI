@@ -1,6 +1,8 @@
-function Weapon()
-{
-    return <h1>Hello World</h1>;
-}
+import WeaponSearchComponent from './weapon_components/WeaponSearchComponents'
 
-export default Weapon;
+export default function EquipmentTab()
+{
+    return (
+        <WeaponSearchComponent/>
+    );
+}
