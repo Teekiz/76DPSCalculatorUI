@@ -1,20 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { Weapon } from '../../types/WeaponTypes';
+import { getAllWeapons, getCurrentWeaponName } from './WeaponApiService';
 
 export default function LoadoutDataAccordion() {
 
     const menuWidth = "200px";
-    const availableWeapons = ["10MM", "GAUSS"];
     const [searchTerm, setSearchTerm] = useState('');
-    const filteredOptions = availableWeapons.filter(option =>
-        option.toLowerCase().includes(searchTerm.toLowerCase())
+    const {weapons} = getAllWeapons();
+    const [currentWeaponName, setCurrentWeaponName] = useState('Select Weapon');
+
+    const filteredOptions = weapons.filter(weapon =>
+        weapon.name && weapon.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    const handleDropdownSelection = (index: Number, value : Number) => ("frerfref");
+
+    const handleDropdownSelection = (weapon : Weapon) => {
+        alert(`Selected: ${weapon.name} with ID: ${weapon.id}`);
+    };
+
+    useEffect(() => {
+        const fetchWeaponName = async () => {
+            const name = await getCurrentWeaponName();
+            setCurrentWeaponName(name);
+        };
+
+        fetchWeaponName();
+    }, []);
 
     return (
             <Dropdown>
                 <Dropdown.Toggle split variant="primary" style={{width: menuWidth, paddingRight: '25px'}}>
-                    Select Weapon&nbsp;
+                    {currentWeaponName}&nbsp;
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu align="start" style={{ width: menuWidth }}>
@@ -28,9 +44,9 @@ export default function LoadoutDataAccordion() {
                         />
                     </div>    
                     {filteredOptions.length > 0 ? (
-                    filteredOptions.map((option, index) => (
-                        <Dropdown.Item key={index} onClick={() => alert(option)}>
-                            {option}
+                    filteredOptions.map((weapon, index) => (
+                        <Dropdown.Item key={index} onClick={() => handleDropdownSelection(weapon)}>
+                            {weapon.name}
                         </Dropdown.Item>
                     ))
                 ) : (
