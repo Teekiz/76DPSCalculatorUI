@@ -1,24 +1,21 @@
 import { useState, useEffect, useContext } from 'react';
 import ApiClient from "../ApiClient";
-import { Weapon } from '../../types/WeaponTypes';
+import { weaponDetails, WeaponSearch } from '../../types/WeaponTypes';
 import { LoadoutContext } from '../../contexts/LoadoutContext';
 
 const WeaponClient = ApiClient();
 export default WeaponClient;
 
+//used to retrieve a list of all weapons (with the name and id).
 export const getAllWeapons = () => {
-    const [weapons, setWeapons] = useState<Weapon[]>([]);
+    const [weapons, setWeapons] = useState<WeaponSearch[]>([]);
     useEffect(() => {
         const fetchWeapons = async () => {
             try {
                 const weaponsData = (await WeaponClient.get('/getAvailableWeapons')).data;
                 if (Array.isArray(weaponsData))
                 {
-                    const transformedWeapons = weaponsData.map((weapon) => ({
-                        id: weapon.weaponID,
-                        name: weapon.weaponName
-                    }));
-                    setWeapons(transformedWeapons);
+                    setWeapons(weaponsData);
                 } else {
                     console.error('Error fetching weapons: expected array but received: ', weaponsData);
                 }
@@ -33,6 +30,7 @@ export const getAllWeapons = () => {
     return {weapons};
 }
 
+// used to return the name of the weapon currently in use.
 export const getCurrentWeaponName = async (): Promise<string> => {
     const { activeLoadoutTab } = useContext(LoadoutContext);
     const defaultName = 'Select Weapon';
@@ -43,6 +41,17 @@ export const getCurrentWeaponName = async (): Promise<string> => {
     } catch (error) {
         console.error('Error fetching weapons:', error);
         return defaultName;
+    }
+}
+
+//used to get some extra details of the weapon name provided.
+export const getWeaponDetails = async (name: string): Promise<weaponDetails> => {
+    try {
+        const weapon = (await WeaponClient.get(`/getWeaponDetails?weaponName=${name}`)).data;
+        return weapon;
+    } catch (error) {
+        console.error(`Error fetching weapon: ${name}`, error);
+        return {weaponName: name, weaponType: '', damageType: '', weaponDamageByLevel: {}};
     }
 }
 
