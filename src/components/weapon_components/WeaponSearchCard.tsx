@@ -1,10 +1,10 @@
 import Card from 'react-bootstrap/Card';
 import Placeholder from 'react-bootstrap/Placeholder';
 import Table from 'react-bootstrap/Table';
-import { weaponDetails } from '../../types/WeaponTypes';
+import { WeaponDetails } from '../../interfaces/WeaponInterfaces';
 
 //Creates a card containing extra details.
-export default function WeaponSearchCard({weapon}: {weapon: weaponDetails}){
+export default function WeaponSearchCard({weapon}: {weapon: WeaponDetails}){
     return (
     <div className="d-flex justify-content-around">
         <Card style={{ width: '18rem' }}>

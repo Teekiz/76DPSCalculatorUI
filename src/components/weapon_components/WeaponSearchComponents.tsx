@@ -1,40 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { WeaponSearch, weaponDetails } from '../../types/WeaponTypes';
-import { getAllWeapons, getCurrentWeaponName, getWeaponDetails } from './WeaponApiService';
+import { MeleeWeaponDetails, RangedWeaponDetails, WeaponBasic, WeaponDetails } from '../../interfaces/WeaponInterfaces';
+import { getAllWeapons, getWeaponDetails, setWeapon } from './WeaponApiService';
 import WeaponSearchCard, {PlaceholderWeaponSearchCard} from './WeaponSearchCard';
 
-export default function LoadoutDataAccordion() {
+export default function WeaponSearchComponent({weapon, loadoutID}: {weapon: RangedWeaponDetails | MeleeWeaponDetails | null, loadoutID: number}) {
 
     const menuWidth = "200px";
     const [searchTerm, setSearchTerm] = useState('');
     const {weapons} = getAllWeapons();
-    const [currentWeaponName, setCurrentWeaponName] = useState('Select Weapon');
 
-    const [hoveredWeapon, setHoveredWeapon] = useState<weaponDetails | null>(null);
+    const [hoveredWeapon, setHoveredWeapon] = useState<WeaponDetails | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
     const filteredOptions = weapons.filter(weapon =>
         weapon.weaponName && weapon.weaponName.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    {/*used to set the current weapon*/}
-    useEffect(() => {
-        const fetchWeaponName = async () => {
-            const name = await getCurrentWeaponName();
-            setCurrentWeaponName(name);
-        };
-    
-        fetchWeaponName();
-    }, []);
 
-    {/* EVENTS*/}
-    {/*used when the user clicks on an option in the dropdown menu*/}
-    const handleDropdownSelection = (weapon : WeaponSearch) => {
-        alert(`Selected: ${weapon.weaponName} with ID: ${weapon.weaponID}`);
+    //used to set the button label
+    const buttonName = (): string => {
+        return weapon && weapon.weaponName.length > 1 ? 'Change weapon ' : 'Set weapon ';
+    }
+
+    //EVENTS
+    //used when the user clicks on an option in the dropdown menu*
+    const handleDropdownSelection = (weapon : WeaponBasic) => {
+        setWeapon(weapon.weaponID, weapon.weaponName, loadoutID);
     };
 
-    {/*used when the user hovers over an option in the dropdown menu*/}
-    const handleMouseEnter = async (weapon: WeaponSearch) => {
+    //used when the user hovers over an option in the dropdown menu
+    const handleMouseEnter = async (weapon: WeaponBasic) => {
         try{
             setLoading(true);
             const weaponDetails = await getWeaponDetails(weapon.weaponName);
@@ -46,7 +41,7 @@ export default function LoadoutDataAccordion() {
         }
     };
 
-    {/*used when the user leaves an option in the dropdown menu*/}
+    //used when the user leaves an option in the dropdown menu*
     const handleMouseLeave = () => {
         setHoveredWeapon(null);
     };
@@ -55,7 +50,7 @@ export default function LoadoutDataAccordion() {
         <div className="d-flex align-items-start">
                 <Dropdown>
                     <Dropdown.Toggle split variant="primary" style={{width: menuWidth, paddingRight: '25px'}}>
-                        {currentWeaponName}&nbsp;
+                        {buttonName()}
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu align="start" style={{ width: menuWidth }}>
