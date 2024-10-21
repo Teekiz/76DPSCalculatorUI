@@ -13,6 +13,7 @@ export default function WeaponSearchCard({weapon}: {weapon: WeaponDetails}){
             <Card.Text>
             Weapon type: {weapon.weaponType}<br />
             Damage type: {weapon.damageType}<br />
+            </Card.Text>
             <Table striped bordered hover size="sm">
                 <thead>
                     <tr>
@@ -28,8 +29,7 @@ export default function WeaponSearchCard({weapon}: {weapon: WeaponDetails}){
                         </tr>
                     ))}
                 </tbody>
-            </Table>
-            </Card.Text>
+            </Table>    
         </Card.Body>
         </Card>
     </div>

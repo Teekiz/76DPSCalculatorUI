@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
-import { RangedWeaponDetails, MeleeWeaponDetails } from "../interfaces/WeaponInterfaces";
+import { RangedWeaponDetails, MeleeWeaponDetails, WeaponBasic } from "../interfaces/WeaponInterfaces";
 import { LoadoutContext } from '../contexts/LoadoutContext';
-import { getCurrentWeapon } from './weapon_components/WeaponApiService';
+import { getCurrentWeapon, setWeapon } from '../api/WeaponApiService';
 import WeaponSearchComponent from './weapon_components/WeaponSearchComponents'
 import WeaponStatsTable from './weapon_components/WeaponStatsTable';
 
@@ -12,6 +12,13 @@ export default function EquipmentTab()
 {
     const [currentWeapon, setCurrentWeapon] = useState<RangedWeaponDetails | MeleeWeaponDetails | null>(null);
     const { activeLoadoutTab } = useContext(LoadoutContext); // Example context usage
+
+    // When the user changes the weapon, set the weapon and then update it
+    const handleWeaponSelection = async (weapon: WeaponBasic) => {
+        await setWeapon(weapon.weaponID, weapon.weaponName, activeLoadoutTab);
+        const updatedWeapon = await getCurrentWeapon(activeLoadoutTab);
+        setCurrentWeapon(updatedWeapon);
+    };
 
     // Fetch the current weapon when the component mounts or when activeLoadoutTab changes
     useEffect(() => {
@@ -26,7 +33,7 @@ export default function EquipmentTab()
     return (
         <>
             <Row>
-                <Col><WeaponSearchComponent weapon={currentWeapon} loadoutID={activeLoadoutTab}/></Col>            
+                <Col><WeaponSearchComponent weapon={currentWeapon} onWeaponSelect={handleWeaponSelection}/></Col>            
                 <Col><WeaponStatsTable weapon={currentWeapon}/></Col>
             </Row>
         </>

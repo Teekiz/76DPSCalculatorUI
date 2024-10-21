@@ -20,11 +20,11 @@ export default function WeaponStatsTable({ weapon }: { weapon: RangedWeaponDetai
                 <td colSpan={2}>
                     <Dropdown>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        {level ? level : 'Set level'}
+                        {level ? 'Level ' + level : 'Set level'}
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        {weapon ? (
+                        {weapon && weapon.weaponDamageByLevel ? (
                             Object.keys(weapon.weaponDamageByLevel).length > 0 ? (
                                 Object.entries(weapon.weaponDamageByLevel).map(([level]) => (
                                     <Dropdown.Item 

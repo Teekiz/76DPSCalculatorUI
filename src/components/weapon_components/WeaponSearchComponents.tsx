@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { MeleeWeaponDetails, RangedWeaponDetails, WeaponBasic, WeaponDetails } from '../../interfaces/WeaponInterfaces';
-import { getAllWeapons, getWeaponDetails, setWeapon } from './WeaponApiService';
+import { getAllWeapons, getWeaponDetails } from '../../api/WeaponApiService';
 import WeaponSearchCard, {PlaceholderWeaponSearchCard} from './WeaponSearchCard';
 
-export default function WeaponSearchComponent({weapon, loadoutID}: {weapon: RangedWeaponDetails | MeleeWeaponDetails | null, loadoutID: number}) {
+export default function WeaponSearchComponent({
+    weapon, 
+    onWeaponSelect
+}: {
+    weapon: RangedWeaponDetails | MeleeWeaponDetails | null,
+    onWeaponSelect: (weapon: WeaponBasic) => void }) {
 
     const menuWidth = "200px";
     const [searchTerm, setSearchTerm] = useState('');
@@ -23,9 +28,9 @@ export default function WeaponSearchComponent({weapon, loadoutID}: {weapon: Rang
     }
 
     //EVENTS
-    //used when the user clicks on an option in the dropdown menu*
+    //used when the user clicks on an option in the dropdown menu
     const handleDropdownSelection = (weapon : WeaponBasic) => {
-        setWeapon(weapon.weaponID, weapon.weaponName, loadoutID);
+        onWeaponSelect(weapon);
     };
 
     //used when the user hovers over an option in the dropdown menu
@@ -61,6 +66,7 @@ export default function WeaponSearchComponent({weapon, loadoutID}: {weapon: Rang
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 style={{width: '90%'}}
+                                name='searchBar'
                             />
                         </div>    
                         {filteredOptions.length > 0 ? (
