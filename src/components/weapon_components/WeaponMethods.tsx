@@ -12,15 +12,10 @@ export function getDamageByLevel(weapon: RangedWeaponDetails | MeleeWeaponDetail
 
 //returns true if ranged, false if melee
 export function isRangedWeapon(weapon: any): weapon is RangedWeaponDetails {
-    return weapon && 
-           typeof weapon.fireRate === 'number' &&
-           typeof weapon.magazineSize === 'number' &&
-           typeof weapon.range === 'number' &&
-           typeof weapon.accuracy === 'number';
+    return weapon && weapon.dataType && weapon.dataType === 'RANGED';
 }
 
 //returns true if melee, false if ranged,
 export function isMeleeWeapon(weapon: any): weapon is MeleeWeaponDetails {
-    return weapon && 
-           true;
+    return weapon && weapon.dataType && weapon.dataType === 'MELEE';
 }

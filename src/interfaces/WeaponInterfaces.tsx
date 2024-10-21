@@ -10,9 +10,10 @@ export interface WeaponDetails extends WeaponBasic{
 }
 
 export interface WeaponDetailsFull extends WeaponDetails {
+    dataType: string;
     apCost: number;
     criticalBonus: number;
-}
+} 
 
 export interface RangedWeaponDetails extends WeaponDetailsFull {
     fireRate: number;

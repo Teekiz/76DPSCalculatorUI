@@ -9,7 +9,7 @@ export default function WeaponStatsTable({ weapon }: { weapon: RangedWeaponDetai
     const [level, setLevel] = useState<number | null>(null);
 
     return (
-        <Table striped bordered hover>
+        <Table striped bordered hover size='sm'>
           <thead>
             <tr>
               <th colSpan={2}>{weapon ? weapon.weaponName : 'No Weapon Selected'}</th>
@@ -19,7 +19,7 @@ export default function WeaponStatsTable({ weapon }: { weapon: RangedWeaponDetai
             <tr>
                 <td colSpan={2}>
                     <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    <Dropdown.Toggle className="w-100" variant="success" id="dropdown-basic">
                         {level ? 'Level ' + level : 'Set level'}
                     </Dropdown.Toggle>
 
