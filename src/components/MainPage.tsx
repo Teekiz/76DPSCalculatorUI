@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-
 import LoadoutNavigationBar from '../components/LoadoutNavigationBar';
 import LoadoutDataAccordion from '../components/LoadoutDataAccordion';
 import { LoadoutIDContext, LoadoutsContext } from '../contexts/LoadoutContext'; 

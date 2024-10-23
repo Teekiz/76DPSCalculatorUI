@@ -1,9 +1,12 @@
 import { createContext } from 'react';
-import { LoadoutsContextType } from '../interfaces/LoadoutInterface';
+import { Loadout } from '../interfaces/LoadoutInterface';
 
 export const LoadoutIDContext = createContext({
     activeLoadoutTab: 0,
-    setActiveLoadoutTab: (tab : number) => {}
+    setActiveLoadoutTab: (activeLoadoutTab : number) => {}
 });
 
-export const LoadoutsContext = createContext<LoadoutsContextType | undefined>(undefined);
+export const LoadoutsContext = createContext({
+    loadouts: [] as Loadout[],
+    setLoadouts: (loadouts: Loadout[]) => {}
+});
