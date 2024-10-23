@@ -1,19 +1,10 @@
-import { useState } from 'react';
-
-import LoadoutNavigationBar from './components/LoadoutNavigationBar';
-import LoadoutDataAccordion from './components/LoadoutDataAccordion';
-import { LoadoutContext } from './contexts/LoadoutContext'; 
+import MainPage from "./components/MainPage";
 
 function App()
 {
-  const [activeLoadoutTab, setActiveLoadoutTab] = useState<number>(0);
-
   return (
     <div className='App' data-bs-theme="dark">
-      <LoadoutContext.Provider value={{activeLoadoutTab, setActiveLoadoutTab}}>
-        <LoadoutNavigationBar />
-        <LoadoutDataAccordion />
-      </LoadoutContext.Provider>
+      <MainPage />
     </div>
   );
 }

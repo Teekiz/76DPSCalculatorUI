@@ -1,6 +1,9 @@
-import {createContext} from 'react';
+import { createContext } from 'react';
+import { LoadoutsContextType } from '../interfaces/LoadoutInterface';
 
-export const LoadoutContext = createContext({
+export const LoadoutIDContext = createContext({
     activeLoadoutTab: 0,
     setActiveLoadoutTab: (tab : number) => {}
 });
+
+export const LoadoutsContext = createContext<LoadoutsContextType | undefined>(undefined);

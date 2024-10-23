@@ -1,40 +1,32 @@
-import { useState, useEffect } from 'react';
 import ApiClient from "./ApiClient";
 import { WeaponDetails, WeaponBasic, RangedWeaponDetails, MeleeWeaponDetails, WeaponDetailsFull } from '../interfaces/WeaponInterfaces';
 import { isRangedWeapon, isMeleeWeapon } from '../components/weapon_components/WeaponMethods'
 
-const WeaponClient = ApiClient();
-export default WeaponClient;
+const client = ApiClient();
+export default client;
 
 //used to retrieve a list of all weapons (with the name and id).
-export const getAllWeapons = () => {
-    const [weapons, setWeapons] = useState<WeaponBasic[]>([]);
-    useEffect(() => {
-        const fetchWeapons = async () => {
-            try {
-                const weaponsData = (await WeaponClient.get('/getAvailableWeapons')).data;
-                if (Array.isArray(weaponsData))
-                {
-                    setWeapons(weaponsData);
-                    console.debug('Retreived weapons data (getAllWeapons):', weaponsData)
-                } else {
-                    console.error('Error fetching weapons: expected array but received: ', weaponsData);
-                }
-            } catch (error: any) {
-                console.error('Error fetching weapons:', error.message);
-            }
-        };
-    
-        fetchWeapons();
-    }, []);
-
-    return {weapons};
+export const getAllWeapons = async (): Promise <WeaponBasic[]> => {
+    try {
+        const weaponsData = (await client.get('/getAvailableWeapons')).data;
+        if (Array.isArray(weaponsData))
+        {
+            console.debug('Retreived weapons data (getAllWeapons):', weaponsData)
+            return weaponsData;
+        } else {
+            console.error('Error fetching weapons: expected array but received: ', weaponsData);
+            return [];
+        }
+    } catch (error: any) {
+        console.error('Error fetching weapons:', error.message);
+        return [];
+    }
 }
 
 // used to return the weapon currently in use.
 export const getCurrentWeapon = async (loadoutID: number): Promise<WeaponDetailsFull | null> => {
     try {
-        const weapon = (await WeaponClient.get(`/getWeapon?loadoutID=${loadoutID}`)).data;
+        const weapon = (await client.get(`/getWeapon?loadoutID=${loadoutID}`)).data;
         console.debug(weapon)
         if (weapon && isRangedWeapon(weapon))
         {
@@ -55,7 +47,7 @@ export const getCurrentWeapon = async (loadoutID: number): Promise<WeaponDetails
 //used to get some extra details of the weapon name provided.
 export const getWeaponDetails = async (name: string): Promise<WeaponDetails> => {
     try {
-        const weapon = (await WeaponClient.get(`/getWeaponDetails?weaponName=${name}`)).data;
+        const weapon = (await client.get(`/getWeaponDetails?weaponName=${name}`)).data;
         console.debug('Retreived weapon data (getWeaponDetails):', weapon)
         return weapon;
     } catch (error: any) {
@@ -66,7 +58,7 @@ export const getWeaponDetails = async (name: string): Promise<WeaponDetails> => 
 
 export const setWeapon = async (weaponID: number, weaponName: string, loadoutID: number) => {
     try {
-        await WeaponClient.post(`/setWeapon?loadoutID=${loadoutID}&weaponName=${weaponName}`);
+        await client.post(`/setWeapon?loadoutID=${loadoutID}&weaponName=${weaponName}`);
         console.debug(`Sent new weapon post: ${weaponID}, ${weaponName}, ${loadoutID}`)
     } catch (error : any) {
         console.error(`Error posting weapon: ${weaponID}, ${weaponName}`, error.message);

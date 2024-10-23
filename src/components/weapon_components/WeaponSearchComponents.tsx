@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { MeleeWeaponDetails, RangedWeaponDetails, WeaponBasic, WeaponDetails } from '../../interfaces/WeaponInterfaces';
 import { getAllWeapons, getWeaponDetails } from '../../api/WeaponApiService';
@@ -13,10 +13,20 @@ export default function WeaponSearchComponent({
 
     const menuWidth = "200px";
     const [searchTerm, setSearchTerm] = useState('');
-    const {weapons} = getAllWeapons();
+    const [weapons, setWeapons] = useState<WeaponBasic[]>([]);
 
     const [hoveredWeapon, setHoveredWeapon] = useState<WeaponDetails | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const [weaponDetailsCache, setWeaponDetailsCache] = useState<{ [weaponName: string]: WeaponDetails }>({});
+
+    //loads the weapons data from the API.
+    useEffect(() => {
+        const fetchWeapons = async () => {
+            const weaponsData = await getAllWeapons();
+            setWeapons(weaponsData);
+        }
+        fetchWeapons();
+    }, []);
 
     const filteredOptions = weapons.filter(weapon =>
         weapon.weaponName && weapon.weaponName.toLowerCase().includes(searchTerm.toLowerCase())
@@ -35,10 +45,19 @@ export default function WeaponSearchComponent({
 
     //used when the user hovers over an option in the dropdown menu
     const handleMouseEnter = async (weapon: WeaponBasic) => {
+        //uses a cached version of the weapon if it already exists
+        if (weaponDetailsCache[weapon.weaponName]){
+            setHoveredWeapon(weaponDetailsCache[weapon.weaponName]);
+            return;
+        }
         try{
             setLoading(true);
             const weaponDetails = await getWeaponDetails(weapon.weaponName);
             setHoveredWeapon(weaponDetails);
+            setWeaponDetailsCache((previous) => ({
+                ...previous,
+                [weapon.weaponName]: weaponDetails
+            }));
         } catch (error) {
             console.error('Error fetching weapon details:', error);
         } finally {

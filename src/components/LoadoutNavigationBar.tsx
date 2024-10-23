@@ -1,10 +1,10 @@
 import { useContext } from "react"
-import { LoadoutContext } from "../contexts/LoadoutContext";
+import { LoadoutIDContext } from "../contexts/LoadoutContext";
 import Nav from 'react-bootstrap/Nav';
 
 export default function LoadoutNavigationBar()
 {
-    const { activeLoadoutTab, setActiveLoadoutTab } = useContext(LoadoutContext);
+    const { activeLoadoutTab, setActiveLoadoutTab } = useContext(LoadoutIDContext);
     const loadouts = ["Loadout #1", "Loadout #2", "Loadout #3", "New Loadout"];
 
     const handleTabClick = (index : number) => {

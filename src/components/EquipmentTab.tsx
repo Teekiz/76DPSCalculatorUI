@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { RangedWeaponDetails, MeleeWeaponDetails, WeaponBasic } from "../interfaces/WeaponInterfaces";
-import { LoadoutContext } from '../contexts/LoadoutContext';
+import { LoadoutIDContext } from '../contexts/LoadoutContext';
 import { getCurrentWeapon, setWeapon } from '../api/WeaponApiService';
 import WeaponSearchComponent from './weapon_components/WeaponSearchComponents'
 import WeaponStatsTable from './weapon_components/WeaponStatsTable';
@@ -11,7 +11,7 @@ import Col from 'react-bootstrap/Col';
 export default function EquipmentTab()
 {
     const [currentWeapon, setCurrentWeapon] = useState<RangedWeaponDetails | MeleeWeaponDetails | null>(null);
-    const { activeLoadoutTab } = useContext(LoadoutContext); // Example context usage
+    const { activeLoadoutTab } = useContext(LoadoutIDContext); // Example context usage
 
     // When the user changes the weapon, set the weapon and then update it
     const handleWeaponSelection = async (weapon: WeaponBasic) => {
