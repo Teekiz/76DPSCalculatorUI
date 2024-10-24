@@ -20,4 +20,19 @@ export const getAllLoadouts = async (): Promise<Loadout[]> => {
     }
 }
 
+//used when creating a new loadout or single loadout.
+export const getLoadout = async (newID: number): Promise<Loadout | null> => {
+    try {
+        const {data: loadoutData} = await client.get<Loadout>(`/getLoadout?loadoutID=${newID}`);
+        return loadoutData;
+    } catch (error: unknown){
+        if (error instanceof Error){
+            console.error('Error getting loadout:', error.message);
+        } else {
+            console.error('An unknown error occurred while retreiving loadout');
+        }
+        return null;
+    }
+}
+
 //need to add and delete
