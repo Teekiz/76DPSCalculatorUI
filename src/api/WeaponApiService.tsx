@@ -3,7 +3,6 @@ import { WeaponDetails, WeaponBasic, RangedWeaponDetails, MeleeWeaponDetails, We
 import { isRangedWeapon, isMeleeWeapon } from '../components/weapon_components/WeaponMethods'
 
 const client = ApiClient();
-export default client;
 
 //used to retrieve a list of all weapons (with the name and id).
 export const getAllWeapons = async (): Promise <WeaponBasic[]> => {
@@ -17,8 +16,8 @@ export const getAllWeapons = async (): Promise <WeaponBasic[]> => {
             console.error('Error fetching weapons: expected array but received: ', weaponsData);
             return [];
         }
-    } catch (error: any) {
-        console.error('Error fetching weapons:', error.message);
+    } catch (error) {
+        console.error('Error fetching weapons:', error);
         return [];
     }
 }
@@ -38,8 +37,8 @@ export const getCurrentWeapon = async (loadoutID: number): Promise<WeaponDetails
         } else{
             return null;
         }
-    } catch (error : any) {
-        console.error('Error fetching weapons:', error.message);
+    } catch (error) {
+        console.error('Error fetching weapons:', error);
         return null;
     }
 }
@@ -50,18 +49,18 @@ export const getWeaponDetails = async (name: string): Promise<WeaponDetails> => 
         const weapon = (await client.get(`/getWeaponDetails?weaponName=${name}`)).data;
         console.debug('Retreived weapon data (getWeaponDetails):', weapon)
         return weapon;
-    } catch (error: any) {
-        console.error(`Error fetching weapon: ${name}`, error.message);
+    } catch (error) {
+        console.error(`Error fetching weapon: ${name}`, error);
         return {weaponID: 0, weaponName: name, weaponType: '', damageType: '', weaponDamageByLevel: {}};
     }
 }
 
-export const setWeapon = async (weaponID: number, weaponName: string, loadoutID: number) => {
+export const setWeapon = async (weapon: WeaponBasic, loadoutID: number) => {
     try {
-        await client.post(`/setWeapon?loadoutID=${loadoutID}&weaponName=${weaponName}`);
-        console.debug(`Sent new weapon post: ${weaponID}, ${weaponName}, ${loadoutID}`)
-    } catch (error : any) {
-        console.error(`Error posting weapon: ${weaponID}, ${weaponName}`, error.message);
+        await client.post(`/setWeapon?loadoutID=${loadoutID}&weaponName=${weapon.weaponName}`);
+        console.debug(`Sent new weapon post: ${weapon.weaponID}, ${weapon.weaponName}, ${loadoutID}`)
+    } catch (error) {
+        console.error(`Error posting weapon: ${weapon.weaponID}, ${weapon.weaponName}`, error);
     }
 }
 

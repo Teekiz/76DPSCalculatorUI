@@ -8,7 +8,7 @@ export default function WeaponSearchComponent({
     weapon, 
     onWeaponSelect
 }: {
-    weapon: RangedWeaponDetails | MeleeWeaponDetails | null,
+    weapon: RangedWeaponDetails | MeleeWeaponDetails | null | undefined,
     onWeaponSelect: (weapon: WeaponBasic) => void }) {
 
     const menuWidth = "200px";

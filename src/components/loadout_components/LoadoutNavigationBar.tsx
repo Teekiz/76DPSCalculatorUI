@@ -1,33 +1,29 @@
-import { useContext } from "react"
-import { LoadoutIDContext, LoadoutsContext } from "../contexts/LoadoutContext";
-import { getLoadout } from "../api/LoadoutApiService";
 import Nav from 'react-bootstrap/Nav';
-
+import useLoadoutStore from "../../stores/LoadoutsStore.tsx";
 export default function LoadoutNavigationBar()
 {
-    const { activeLoadoutTab, setActiveLoadoutTab } = useContext(LoadoutIDContext);
-    const {loadouts, setLoadouts} = useContext(LoadoutsContext);
+    const loadouts = useLoadoutStore(state => state.loadouts);
+    const activeLoadout = useLoadoutStore(state => state.activeLoadout);
+    const changeActiveLoadout = useLoadoutStore(state => state.actions.loadoutActions.changeActiveLoadout);
+    const addLoadout = useLoadoutStore(state => state.actions.loadoutActions.addLoadout);
 
     const handleTabClick = (index : number) => {
-      setActiveLoadoutTab(index);
+        changeActiveLoadout(index);
     };
 
     //adds a new loadout to the list
     const handleNewTabClick = async () => {
-      const newLoadout = await getLoadout(loadouts.length + 1);
-      if(newLoadout != null){
-        setLoadouts([...loadouts, newLoadout]);
-      }
+          await addLoadout();
     };
-    
+
     return (
-        <Nav variant="tabs" activeKey={activeLoadoutTab.toString()}>
+        <Nav variant="tabs" activeKey={activeLoadout?.loadoutID.toString()}>
           {loadouts.map((loadout, index) => (
-            <Nav.Item key={index}>
+            <Nav.Item key={loadout.loadoutID}>
                 <Nav.Link
                     eventKey={index.toString()}
                     onClick={() => handleTabClick(index)}
-                    aria-current={activeLoadoutTab === index ? "page" : undefined}>
+                    aria-current={activeLoadout?.loadoutID === index ? "page" : undefined}>
                     {'Loadout: ' + loadout.loadoutID}
                 </Nav.Link>
             </Nav.Item>

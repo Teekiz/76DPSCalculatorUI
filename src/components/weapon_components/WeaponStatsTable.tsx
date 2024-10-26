@@ -5,7 +5,7 @@ import { RangedWeaponDetails, MeleeWeaponDetails} from '../../interfaces/WeaponI
 import { getRangedStatsRows, getMeleeStatsRows } from './WeaponSpecificStats';
 import { getDamageByLevel } from './WeaponMethods';
 
-export default function WeaponStatsTable({ weapon }: { weapon: RangedWeaponDetails | MeleeWeaponDetails | null}){
+export default function WeaponStatsTable({ weapon }: { weapon: RangedWeaponDetails | MeleeWeaponDetails | null | undefined }) {
     const [level, setLevel] = useState<number | null>(null);
 
     return (
