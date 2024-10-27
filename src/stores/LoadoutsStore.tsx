@@ -64,26 +64,29 @@ const useLoadoutStore = create<LoadoutsStoreState & LoadoutsStoreActions>()(
                             loadouts: state.loadouts.filter(loadout => loadout.loadoutID != id)
                         }))
                     },
-                    changeActiveLoadout: (index: number) => {
+                    changeActiveLoadout: (loadoutID: number) => {
                         const { loadouts, activeLoadout } = get();
 
-                        if (index >= 0 && index < loadouts.length) {
+                        // Find the new active loadout by loadoutID
+                        const newActiveLoadout = loadouts.find(loadout => loadout.loadoutID === loadoutID);
+
+                        if (newActiveLoadout) {
                             if (activeLoadout) {
                                 set((state) => ({
+                                    // Update the loadouts array with any changes to the previous active loadout
                                     loadouts: state.loadouts.map(loadout =>
-                                        loadout.loadoutID === activeLoadout.loadoutID
-                                            ? activeLoadout
-                                            : loadout
+                                        loadout.loadoutID === activeLoadout.loadoutID ? activeLoadout : loadout
                                     ),
-                                    activeLoadout: state.loadouts[index]
+                                    activeLoadout: newActiveLoadout // Set the new active loadout
                                 }));
                             } else {
+                                // If no active loadout currently, just set the new active loadout
                                 set(() => ({
-                                    activeLoadout: loadouts[index],
+                                    activeLoadout: newActiveLoadout,
                                 }));
                             }
                         } else {
-                            console.warn("Invalid index for loadouts:", index);
+                            console.warn("Invalid loadoutID:", loadoutID);
                         }
                     }
                 },

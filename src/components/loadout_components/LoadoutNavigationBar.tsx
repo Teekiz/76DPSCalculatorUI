@@ -7,8 +7,8 @@ export default function LoadoutNavigationBar()
     const changeActiveLoadout = useLoadoutStore(state => state.actions.loadoutActions.changeActiveLoadout);
     const addLoadout = useLoadoutStore(state => state.actions.loadoutActions.addLoadout);
 
-    const handleTabClick = (index : number) => {
-        changeActiveLoadout(index);
+    const handleTabClick = (loadoutID : number) => {
+        changeActiveLoadout(loadoutID);
     };
 
     //adds a new loadout to the list
@@ -18,12 +18,12 @@ export default function LoadoutNavigationBar()
 
     return (
         <Nav variant="tabs" activeKey={activeLoadout?.loadoutID.toString()}>
-          {loadouts.map((loadout, index) => (
+          {loadouts.map((loadout) => (
             <Nav.Item key={loadout.loadoutID}>
                 <Nav.Link
-                    eventKey={index.toString()}
-                    onClick={() => handleTabClick(index)}
-                    aria-current={activeLoadout?.loadoutID === index ? "page" : undefined}>
+                    eventKey={loadout.loadoutID.toString()}
+                    onClick={() => handleTabClick(loadout.loadoutID)}
+                    aria-current={activeLoadout?.loadoutID === loadout.loadoutID ? "page" : undefined}>
                     {'Loadout: ' + loadout.loadoutID}
                 </Nav.Link>
             </Nav.Item>
