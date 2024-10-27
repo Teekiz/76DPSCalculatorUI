@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { MeleeWeaponDetails, RangedWeaponDetails, WeaponBasic, WeaponDetails } from '../../interfaces/WeaponInterfaces';
-import { getAllWeapons, getWeaponDetails } from '../../api/WeaponApiService';
-import WeaponSearchCard, {PlaceholderWeaponSearchCard} from './WeaponSearchCard';
+import { MeleeWeaponDetails, RangedWeaponDetails, WeaponBasic, WeaponDetails } from '../../../interfaces/WeaponInterfaces.tsx';
+import { getAllWeapons, getWeaponDetails } from '../../../api/WeaponApiService.tsx';
+import WeaponSearchCard, {PlaceholderWeaponSearchCard} from './WeaponSearchCard.tsx';
 
 export default function WeaponSearchComponent({
     weapon, 

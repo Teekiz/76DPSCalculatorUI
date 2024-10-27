@@ -1,4 +1,4 @@
-import { RangedWeaponDetails, MeleeWeaponDetails } from "../../interfaces/WeaponInterfaces";
+import { RangedWeaponDetails, MeleeWeaponDetails } from "../../../interfaces/WeaponInterfaces.tsx";
 
 //a function used to determine if a key matching the given level can be found, and if so, return the value (otherwise null)
 export function getDamageByLevel(weapon: RangedWeaponDetails | MeleeWeaponDetails, level: number): number | null

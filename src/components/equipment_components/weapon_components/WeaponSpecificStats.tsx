@@ -1,4 +1,4 @@
-import { isRangedWeapon, isMeleeWeapon } from "./WeaponMethods";
+import { isRangedWeapon, isMeleeWeapon } from "./WeaponMethods.tsx";
 
 export function getRangedStatsRows(weapon: any): JSX.Element | null {
     if (weapon && isRangedWeapon(weapon))

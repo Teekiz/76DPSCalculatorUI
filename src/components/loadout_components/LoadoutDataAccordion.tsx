@@ -1,5 +1,5 @@
 import Accordion from 'react-bootstrap/Accordion';
-import EquipmentTab from '../EquipmentTab';
+import EquipmentTab from '../equipment_components/EquipmentTab.tsx';
 
 export default function LoadoutDataAccordion() {
   return (

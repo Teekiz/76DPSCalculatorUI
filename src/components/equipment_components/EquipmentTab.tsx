@@ -1,10 +1,10 @@
-import {WeaponBasic} from "../interfaces/WeaponInterfaces";
-import WeaponSearchComponent from './weapon_components/WeaponSearchComponents'
-import WeaponStatsTable from './weapon_components/WeaponStatsTable';
+import {WeaponBasic} from "../../interfaces/WeaponInterfaces.tsx";
+import WeaponSearchComponent from './weapon_components/WeaponSearchComponents.tsx'
+import WeaponStatsTable from './weapon_components/WeaponStatsTable.tsx';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import useLoadoutStore from "../stores/LoadoutsStore.tsx";
+import useLoadoutStore from "../../stores/LoadoutsStore.tsx";
 
 
 export default function EquipmentTab()
