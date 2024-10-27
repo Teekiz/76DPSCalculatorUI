@@ -100,6 +100,7 @@ const useLoadoutStore = create<LoadoutsStoreState & LoadoutsStoreActions>()(
                 weaponActions: {
                     changeWeapon: async (weapon: WeaponBasic) => {
                         const { activeLoadout } = get();
+                        console.debug("Change weapons called for: ", weapon);
                         if (activeLoadout) {
                             try {
                                 await setWeapon(weapon, activeLoadout.loadoutID);
