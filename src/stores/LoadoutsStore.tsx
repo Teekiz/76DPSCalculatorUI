@@ -36,6 +36,11 @@ const useLoadoutStore = create<LoadoutsStoreState & LoadoutsStoreActions>()(
                         try {
                             const loadouts = await getAllLoadouts();
                             set(() => ({ loadouts }));
+
+                            if (loadouts.length > 0){
+                                set(() => ({activeLoadout: loadouts[0]}))
+                            }
+
                         } catch (error) {
                             console.error("Failed to fetch loadouts:", error);
                         }
@@ -43,15 +48,17 @@ const useLoadoutStore = create<LoadoutsStoreState & LoadoutsStoreActions>()(
                     addLoadout: async () => {
                         const { loadouts } = get();
                         const length = loadouts.length;
-
                         try {
-                            const newLoadout = await getLoadout(length + 1); // Fetch the new loadout using the next ID
+                            const newLoadout = await getLoadout(length+ 1); // Fetch the new loadout using the next ID
 
                             if (newLoadout) {
                                 console.debug("Add loadout called", newLoadout); // Log the new loadout for debugging
                                 set((state) => ({
                                     loadouts: [...state.loadouts, newLoadout], // Update the state with the new loadout
                                 }));
+                            //if this is the first loadout created, set the active loadout to 0
+                            if (length === 0){set(() => ({
+                                activeLoadout: newLoadout}))}
                             } else {
                                 console.warn("No loadout returned from API for ID:", length + 1); // Handle case where no loadout is returned
                             }
