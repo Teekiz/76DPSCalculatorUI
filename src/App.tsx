@@ -1,5 +1,5 @@
-import LoadoutNavigationBar from "./components/loadout_components/LoadoutNavigationBar.tsx";
-import LoadoutDataAccordion from "./components/loadout_components/LoadoutDataAccordion.tsx";
+import LoadoutNavigationBar from "./components/general_components/LoadoutNavigationBar.tsx";
+import LoadoutDataAccordion from "./components/general_components/LoadoutDataAccordion.tsx";
 
 function App()
 {
