@@ -2,7 +2,6 @@ import ApiClient from "./ApiClient";
 import { Loadout } from '../interfaces/LoadoutInterface';
 
 const client = ApiClient();
-export default client;
 
 export const getAllLoadouts = async (): Promise<Loadout[]> => {
     try {
@@ -14,8 +13,8 @@ export const getAllLoadouts = async (): Promise<Loadout[]> => {
             console.error('Error fetching loadouts: expected array but received:', loadoutData);
             return [];
         }
-    } catch (error: any) {
-        console.error('Error fetching loadouts:', error.message);
+    } catch (error) {
+        console.error('Error fetching loadouts:', error);
         return [];
     }
 }

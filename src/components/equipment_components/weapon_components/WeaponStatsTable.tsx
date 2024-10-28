@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Table from 'react-bootstrap/Table';
-import { RangedWeaponDetails, MeleeWeaponDetails} from '../../interfaces/WeaponInterfaces';
-import { getRangedStatsRows, getMeleeStatsRows } from './WeaponSpecificStats';
-import { getDamageByLevel } from './WeaponMethods';
+import { RangedWeaponDetails, MeleeWeaponDetails} from '../../../interfaces/WeaponInterfaces.tsx';
+import { getRangedStatsRows, getMeleeStatsRows } from './WeaponSpecificStats.tsx';
+import { getDamageByLevel } from './WeaponMethods.tsx';
 
-export default function WeaponStatsTable({ weapon }: { weapon: RangedWeaponDetails | MeleeWeaponDetails | null}){
+export default function WeaponStatsTable({ weapon }: { weapon: RangedWeaponDetails | MeleeWeaponDetails | null | undefined }) {
     const [level, setLevel] = useState<number | null>(null);
 
     return (

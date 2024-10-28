@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import Placeholder from 'react-bootstrap/Placeholder';
 import Table from 'react-bootstrap/Table';
-import { WeaponDetails } from '../../interfaces/WeaponInterfaces';
+import { WeaponDetails } from '../../../interfaces/WeaponInterfaces.tsx';
 
 //Creates a card containing extra details.
 export default function WeaponSearchCard({weapon}: {weapon: WeaponDetails}){

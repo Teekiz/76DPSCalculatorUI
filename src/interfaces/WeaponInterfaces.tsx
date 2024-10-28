@@ -1,7 +1,7 @@
 export interface WeaponBasic {
     weaponID: number;
     weaponName: string;
-};
+}
 
 export interface WeaponDetails extends WeaponBasic{
     weaponType: string;
@@ -20,8 +20,8 @@ export interface RangedWeaponDetails extends WeaponDetailsFull {
     magazineSize: number;
     range: number;
     accuracy: number;
-};
+}
 
 export interface MeleeWeaponDetails extends WeaponDetailsFull {
 
-};
+}
