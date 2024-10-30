@@ -13,7 +13,8 @@ import {
     TableHead,
     TableBody,
     TableRow,
-    Paper, SelectChangeEvent, TableCell
+    Paper,
+    TableCell, SelectChangeEvent,
 } from '@mui/material';
 
 export default function WeaponStatsTable({ weapon }: { weapon: RangedWeaponDetails | MeleeWeaponDetails | null | undefined }) {
