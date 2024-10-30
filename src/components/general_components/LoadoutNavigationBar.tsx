@@ -1,5 +1,7 @@
-import Nav from 'react-bootstrap/Nav';
+import { Tabs, Tab, Box } from '@mui/material';
+import {SyntheticEvent} from "react";
 import useLoadoutStore from "../../stores/LoadoutsStore.tsx";
+
 export default function LoadoutNavigationBar()
 {
     const loadouts = useLoadoutStore(state => state.loadouts);
@@ -7,7 +9,8 @@ export default function LoadoutNavigationBar()
     const changeActiveLoadout = useLoadoutStore(state => state.actions.loadoutActions.changeActiveLoadout);
     const addLoadout = useLoadoutStore(state => state.actions.loadoutActions.addLoadout);
 
-    const handleTabClick = (loadoutID : number) => {
+    const handleTabClick = (event: SyntheticEvent, loadoutID : number) => {
+        console.debug(event);
         changeActiveLoadout(loadoutID);
     };
 
@@ -17,24 +20,30 @@ export default function LoadoutNavigationBar()
     };
 
     return (
-        <Nav variant="tabs" activeKey={activeLoadout?.loadoutID.toString()}>
-          {loadouts.map((loadout) => (
-            <Nav.Item key={loadout.loadoutID}>
-                <Nav.Link
-                    eventKey={loadout.loadoutID.toString()}
-                    onClick={() => handleTabClick(loadout.loadoutID)}
-                    aria-current={activeLoadout?.loadoutID === loadout.loadoutID ? "page" : undefined}>
-                    {'Loadout: ' + loadout.loadoutID}
-                </Nav.Link>
-            </Nav.Item>
-          ))}
-          <Nav.Item>
-                <Nav.Link
-                    onClick={() => handleNewTabClick()}
-                    aria-current="page">
-                    Create New Loadout
-                </Nav.Link>
-            </Nav.Item>
-        </Nav>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs
+                value={activeLoadout?.loadoutID}
+                onChange={handleTabClick}
+                variant="scrollable"
+                scrollButtons="auto"
+                aria-label="Loadout Tabs"
+            >
+
+                {loadouts.map((loadout) => (
+                    <Tab
+                        key={loadout.loadoutID}
+                        label={'Loadout: ' + loadout.loadoutID}
+                        value={loadout.loadoutID}
+                        aria-current={activeLoadout?.loadoutID === loadout.loadoutID ? "page" : undefined}
+                    />
+                ))}
+
+                <Tab
+                    label="Create New Loadout"
+                    onClick={handleNewTabClick}
+                    sx={{ ml: 2 }} // Optional margin for spacing
+                />
+            </Tabs>
+        </Box>
       );
 }
