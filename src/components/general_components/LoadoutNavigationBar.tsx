@@ -1,6 +1,7 @@
-import { Tabs, Tab, Box } from '@mui/material';
-import {SyntheticEvent} from "react";
 import useLoadoutStore from "../../stores/LoadoutsStore.tsx";
+import {SyntheticEvent} from "react";
+
+import { Tabs, Tab, Box } from '@mui/material';
 
 export default function LoadoutNavigationBar()
 {
@@ -9,8 +10,7 @@ export default function LoadoutNavigationBar()
     const changeActiveLoadout = useLoadoutStore(state => state.actions.loadoutActions.changeActiveLoadout);
     const addLoadout = useLoadoutStore(state => state.actions.loadoutActions.addLoadout);
 
-    const handleTabClick = (event: SyntheticEvent, loadoutID : number) => {
-        console.debug(event);
+    const handleTabClick = (_event: SyntheticEvent, loadoutID: number) => {
         changeActiveLoadout(loadoutID);
     };
 
@@ -41,6 +41,7 @@ export default function LoadoutNavigationBar()
                 <Tab
                     label="Create New Loadout"
                     onClick={handleNewTabClick}
+                    value="createNewLoadout"
                     sx={{ ml: 2 }} // Optional margin for spacing
                 />
             </Tabs>

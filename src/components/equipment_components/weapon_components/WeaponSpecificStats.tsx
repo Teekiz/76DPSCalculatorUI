@@ -1,19 +1,21 @@
 import { isRangedWeapon, isMeleeWeapon } from "./WeaponMethods.tsx";
 
-export function getRangedStatsRows(weapon: any): JSX.Element | null {
+import {TableRow, TableCell} from "@mui/material";
+
+export function getRangedStatsRows(weapon: unknown) {
     if (weapon && isRangedWeapon(weapon))
     {
         return (
-            <tr>
-                <td>Fire rate:</td>
-                <td>{weapon.fireRate}</td>
-            </tr>
+            <TableRow>
+                <TableCell>Fire rate:</TableCell>
+                <TableCell>{weapon.fireRate}</TableCell>
+            </TableRow>
         );
     }
     return null;
 }
 
-export function getMeleeStatsRows(weapon: any): JSX.Element | null {
+export function getMeleeStatsRows(weapon: unknown) {
     if (weapon && isMeleeWeapon(weapon))
     {
         return null;
