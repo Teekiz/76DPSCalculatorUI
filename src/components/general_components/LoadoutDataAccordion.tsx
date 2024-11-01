@@ -1,22 +1,37 @@
-import Accordion from 'react-bootstrap/Accordion';
 import EquipmentTab from '../equipment_components/EquipmentTab.tsx';
 import CharacterTab from "../character_components/CharacterTab.tsx";
 
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+
 export default function LoadoutDataAccordion() {
   return (
-    <Accordion defaultActiveKey="0">
-      <Accordion.Item eventKey="0">
-        <Accordion.Header>Equipment</Accordion.Header>
-        <Accordion.Body>
-          <EquipmentTab />
-        </Accordion.Body>
-      </Accordion.Item>
-      <Accordion.Item eventKey="1">
-        <Accordion.Header>Character</Accordion.Header>
-        <Accordion.Body>
-          <CharacterTab />
-        </Accordion.Body>
-      </Accordion.Item>
-    </Accordion>
+      <div>
+        <Accordion>
+            <AccordionSummary
+                expandIcon={<ArrowDropDownIcon />}
+                aria-controls="panel1-content"
+                id="panel1-header"
+            >
+                <Typography>Equipment</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+                <EquipmentTab />
+            </AccordionDetails>
+        </Accordion>
+
+          <Accordion>
+              <AccordionSummary
+                  expandIcon={<ArrowDropDownIcon />}
+                  aria-controls="panel1-content"
+                  id="panel1-header"
+              >
+                  <Typography>Character</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                  <CharacterTab />
+              </AccordionDetails>
+          </Accordion>
+      </div>
   );
 }

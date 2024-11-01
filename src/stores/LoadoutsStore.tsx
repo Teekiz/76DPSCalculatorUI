@@ -4,6 +4,8 @@ import {Loadout} from "../interfaces/LoadoutInterface.tsx";
 import {getAllLoadouts, getLoadout} from "../api/LoadoutApiService.tsx";
 import {WeaponBasic} from "../interfaces/WeaponInterfaces.tsx";
 import {getCurrentWeapon, setWeapon} from "../api/WeaponApiService.tsx";
+import {Specials} from "../interfaces/SpecialsInterface.tsx";
+import {changeSpecialsStats} from "../api/PlayerApiService.tsx";
 
 interface LoadoutsStoreState {
     loadouts: Loadout[];
@@ -20,6 +22,9 @@ interface LoadoutsStoreActions {
         },
         weaponActions: {
             changeWeapon: (weapon: WeaponBasic) => Promise<void>;
+        }
+        characterActions: {
+            changeSpecials: (specials: Specials) => Promise<void>;
         }
     }
 }
@@ -115,7 +120,24 @@ const useLoadoutStore = create<LoadoutsStoreState & LoadoutsStoreActions>()(
                             }
                         }
                     },
-                }
+                },
+                characterActions: {
+                    changeSpecials: async (specials: Specials) => {
+                        const { activeLoadout } = get();
+                        if (activeLoadout && specials) {
+                            try {
+                                await changeSpecialsStats(activeLoadout.loadoutID, specials);
+                                const updatedActiveLoadout = {
+                                    ...activeLoadout,
+                                    player: {...activeLoadout.player, specials: specials}
+                                };
+                                set(() => ({activeLoadout: updatedActiveLoadout}))
+                            } catch (error){
+                                console.error('Error updating specials:', error);
+                            }
+                        }
+                    }
+                },
             },
         }),
         { name: "LoadoutStore" }

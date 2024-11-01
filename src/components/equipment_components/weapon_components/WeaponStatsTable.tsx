@@ -1,14 +1,88 @@
-import { useState } from 'react';
-import Dropdown from 'react-bootstrap/Dropdown';
-import Table from 'react-bootstrap/Table';
+import { useState} from 'react';
 import { RangedWeaponDetails, MeleeWeaponDetails} from '../../../interfaces/WeaponInterfaces.tsx';
 import { getRangedStatsRows, getMeleeStatsRows } from './WeaponSpecificStats.tsx';
 import { getDamageByLevel } from './WeaponMethods.tsx';
 
+import {
+    Select,
+    MenuItem,
+    FormControl,
+    InputLabel,
+    Table,
+    TableContainer,
+    TableHead,
+    TableBody,
+    TableRow,
+    Paper,
+    TableCell, SelectChangeEvent,
+} from '@mui/material';
+
 export default function WeaponStatsTable({ weapon }: { weapon: RangedWeaponDetails | MeleeWeaponDetails | null | undefined }) {
     const [level, setLevel] = useState<number | null>(null);
 
+    const handleLevelChange = (event: SelectChangeEvent) => {
+        const level = event.target.value;
+        setLevel(Number(level));
+    }
+
     return (
+
+        <TableContainer component={Paper}>
+            <Table>
+                <TableHead>
+                    <TableRow>{weapon ? weapon.weaponName : 'No Weapon Selected'}</TableRow>
+                </TableHead>
+                <TableBody>
+                    <FormControl fullWidth>
+                        <TableRow>
+                                <InputLabel id="level-select-label">{level ? 'Level ' + level : 'Set level'}</InputLabel>
+                        </TableRow>
+                        <TableRow>
+                            <Select
+                                labelId={"level-select-label"}
+                                value={level?.toString()}
+                                onChange={handleLevelChange}
+                                fullWidth>
+
+                                {weapon && weapon.weaponDamageByLevel ? (
+                                    Object.keys(weapon.weaponDamageByLevel).length > 0 ? (
+                                        Object.entries(weapon.weaponDamageByLevel).map(([level]) => (
+                                            <MenuItem key={level} value={level}>
+                                                Level: {level}
+                                            </MenuItem>
+                                        ))
+                                    ) : (
+                                        <MenuItem disabled>No damage available</MenuItem>
+                                    )
+                                ) : (
+                                    <MenuItem disabled>Please set weapon first</MenuItem>
+                                )}
+                            </Select>
+                        </TableRow>
+                    </FormControl>
+                    <TableRow>
+                        <TableCell>Weapon type:</TableCell>
+                        <TableCell>{weapon?.weaponType || ''}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Damage type:</TableCell>
+                        <TableCell>{weapon?.damageType || ''}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Damage:</TableCell>
+                        <TableCell>{level && weapon ? (getDamageByLevel(weapon, level)) : ('')}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>AP cost:</TableCell>
+                        <TableCell>{weapon?.apCost || ''}</TableCell>
+                    </TableRow>
+                    {getRangedStatsRows(weapon)}
+                    {getMeleeStatsRows(weapon)}
+                </TableBody>
+            </Table>
+        </TableContainer>
+
+        /*
         <Table striped bordered hover size='sm'>
           <thead>
             <tr>
@@ -17,51 +91,21 @@ export default function WeaponStatsTable({ weapon }: { weapon: RangedWeaponDetai
           </thead>
           <tbody>
             <tr>
-                <td colSpan={2}>
-                    <Dropdown>
-                    <Dropdown.Toggle className="w-100" variant="success" id="dropdown-basic">
-                        {level ? 'Level ' + level : 'Set level'}
-                    </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                        {weapon && weapon.weaponDamageByLevel ? (
-                            Object.keys(weapon.weaponDamageByLevel).length > 0 ? (
-                                Object.entries(weapon.weaponDamageByLevel).map(([level]) => (
-                                    <Dropdown.Item 
-                                    key={level}
-                                    onClick={() => setLevel(Number(level))}>
-                                        Level: {level}
-                                    </Dropdown.Item>
-                                ))
-                            ) : (
-                                <Dropdown.Item disabled>No damage available</Dropdown.Item>
-                            )
-                        ) : (
-                            <Dropdown.Item disabled>Please set weapon first</Dropdown.Item>
-                        )}
-                    </Dropdown.Menu>
-                    </Dropdown>
-                </td>
+            <tr>
+
             </tr>
             <tr>
-                <td>Weapon type:</td>
-                <td>{weapon?.weaponType || ''}</td>
+
             </tr>
             <tr>
-                <td>Damage type:</td>
-                <td>{weapon?.damageType || ''}</td>
+
             </tr>
-            <tr>
-                <td>Damage:</td>
-                <td>{level && weapon ? (getDamageByLevel(weapon, level)) : ('')}</td>
-            </tr>
-            <tr>
-                <td>AP cost:</td>
-                <td>{weapon?.apCost || ''}</td>
-            </tr>
-            {getRangedStatsRows(weapon)}
-            {getMeleeStatsRows(weapon)}            
+
           </tbody>
         </Table>
-    ); 
+        */
+
+    );
+
 }

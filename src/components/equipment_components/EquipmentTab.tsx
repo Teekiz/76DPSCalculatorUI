@@ -2,8 +2,7 @@ import {WeaponBasic} from "../../interfaces/WeaponInterfaces.tsx";
 import WeaponSearchComponent from './weapon_components/WeaponSearchComponents.tsx'
 import WeaponStatsTable from './weapon_components/WeaponStatsTable.tsx';
 
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Grid2 from '@mui/material/Grid2';
 import useLoadoutStore from "../../stores/LoadoutsStore.tsx";
 
 
@@ -22,10 +21,14 @@ export default function EquipmentTab()
 
     return (
         <>
-            <Row>
-                <Col><WeaponSearchComponent weapon={currentWeapon} onWeaponSelect={handleWeaponSelection}/></Col>
-                <Col><WeaponStatsTable weapon={currentWeapon}/></Col>
-            </Row>
+            <Grid2 container spacing={2}>
+                <Grid2>  {/* xs={12} md={6}*/}
+                    <WeaponSearchComponent weapon={currentWeapon} onWeaponSelect={handleWeaponSelection} />
+                </Grid2>
+                <Grid2>  {/* xs={12} md={6}*/}
+                    <WeaponStatsTable weapon={currentWeapon} />
+                </Grid2>
+            </Grid2>
         </>
     );
 }

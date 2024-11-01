@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import Dropdown from 'react-bootstrap/Dropdown';
 import { MeleeWeaponDetails, RangedWeaponDetails, WeaponBasic, WeaponDetails } from '../../../interfaces/WeaponInterfaces.tsx';
 import { getAllWeapons, getWeaponDetails } from '../../../api/WeaponApiService.tsx';
 import WeaponSearchCard, {PlaceholderWeaponSearchCard} from './WeaponSearchCard.tsx';
+
+import { Autocomplete, TextField, Box, CircularProgress } from '@mui/material';
 
 export default function WeaponSearchComponent({
     weapon, 
@@ -40,6 +41,7 @@ export default function WeaponSearchComponent({
     //EVENTS
     //used when the user clicks on an option in the dropdown menu
     const handleDropdownSelection = (weapon : WeaponBasic) => {
+        setHoveredWeapon(null);
         onWeaponSelect(weapon);
     };
 
@@ -65,55 +67,48 @@ export default function WeaponSearchComponent({
         }
     };
 
-    //used when the user leaves an option in the dropdown menu*
+    //used when the user leaves an option in the dropdown menu
     const handleMouseLeave = () => {
         setHoveredWeapon(null);
     };
 
     return (
         <div className="d-flex align-items-start">
-                <Dropdown>
-                    <Dropdown.Toggle split variant="primary" style={{width: menuWidth, paddingRight: '25px'}}>
-                        {buttonName()}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu align="start" style={{ width: menuWidth }}>
-                    <div style={{ textAlign: 'center' }}>
-                            <input 
-                                type='text'
-                                placeholder='Search'
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                style={{width: '90%'}}
-                                name='searchBar'
-                            />
-                        </div>    
-                        {filteredOptions.length > 0 ? (
-                        filteredOptions.map((weapon, index) => (
-                            <Dropdown.Item 
-                            key={index} 
-                            onClick={() => handleDropdownSelection(weapon)}
-                            onMouseEnter={() => handleMouseEnter(weapon)}
-                            onMouseLeave={handleMouseLeave}
-                            >
-                                {weapon.weaponName}
-                            </Dropdown.Item>
-                        ))
-                    ) : (
-                        <Dropdown.Item disabled>No options found</Dropdown.Item>
-                    )}
-                    </Dropdown.Menu>
-            </Dropdown>
-
-            {/* Displays a WeaponSearchCard if available */}
+            <Autocomplete
+                options={filteredOptions}
+                getOptionLabel={(option) => option.weaponName || ''}
+                onChange={(_event, newValue) => newValue && handleDropdownSelection(newValue)}
+                onInputChange={(_event, newInputValue) => setSearchTerm(newInputValue)}
+                renderInput={(params) => (
+                    <TextField
+                        {...params}
+                        label={buttonName()}
+                        variant="outlined"
+                        fullWidth
+                    />
+                )}
+                style={{ width: menuWidth }}
+                renderOption={(props, option) => (
+                    <Box
+                        component="li"
+                        {...props}
+                        onMouseEnter={() => handleMouseEnter(option)}
+                        onMouseLeave={handleMouseLeave}
+                    >
+                        {option.weaponName}
+                    </Box>
+                )}
+                noOptionsText="No options found"
+            />
+            {/* Displays a weapon search card placeholder */}
             <div style={{ marginLeft: '10px' }}>
                 {hoveredWeapon && !loading && (
                     <WeaponSearchCard weapon={hoveredWeapon} />
                 )}
-                {/* Displays a Placeholder while loading */}
                 {loading && (
                     <PlaceholderWeaponSearchCard />
                 )}
+                {loading && <CircularProgress size={24} />}
             </div>
         </div>
     );
