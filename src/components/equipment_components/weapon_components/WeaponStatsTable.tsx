@@ -81,31 +81,6 @@ export default function WeaponStatsTable({ weapon }: { weapon: RangedWeaponDetai
                 </TableBody>
             </Table>
         </TableContainer>
-
-        /*
-        <Table striped bordered hover size='sm'>
-          <thead>
-            <tr>
-              <th colSpan={2}>{weapon ? weapon.weaponName : 'No Weapon Selected'}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-
-            <tr>
-
-            </tr>
-            <tr>
-
-            </tr>
-            <tr>
-
-            </tr>
-
-          </tbody>
-        </Table>
-        */
-
     );
 
 }

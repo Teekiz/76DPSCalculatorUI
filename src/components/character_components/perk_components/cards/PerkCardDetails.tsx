@@ -3,7 +3,7 @@ export function PrimaryCardColour(special: string): string {
         case 'strength': return '#637e65';
         case 'perception': return '#d3973d';
         case 'endurance': return '#599da5';
-        case 'charisma': return '#d3c230';
+        case 'charisma': return '#83781c';
         case 'intelligence': return '#737272';
         case 'agility': return '#ac3836';
         case 'luck': return '#8b6293';
