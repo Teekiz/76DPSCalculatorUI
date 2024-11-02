@@ -20,3 +20,19 @@ export const getAllPerks = async (): Promise <Perk[]> => {
         return [];
     }
 }
+
+export const addPerk = async (loadoutID: number, perk: Perk): Promise<void> => {
+    try {
+        await client.post(`/addPerk?loadoutID=${loadoutID}&perkName=${perk.name}`);
+    } catch (error){
+        console.error('Error adding perks:', error);
+    }
+}
+
+export const removePerk = async (loadoutID: number, perk: Perk): Promise<void> => {
+    try {
+        await client.post(`/removePerk?loadoutID=${loadoutID}&perkName=${perk.name}`);
+    } catch (error){
+        console.error('Error adding perks:', error);
+    }
+}

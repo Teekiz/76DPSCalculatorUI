@@ -1,11 +1,12 @@
 import {Perk} from "../../../../interfaces/PerkInterface.tsx";
 import {PrimaryCardColour, SecondaryCardColour} from "./PerkCardDetails.tsx"
-import {Box, Button, ButtonGroup, Card, Typography} from "@mui/material";
+import {Box, Button, ButtonGroup, Card, IconButton, Typography} from "@mui/material";
 import Grid2 from "@mui/material/Grid2";
-import {Star, StarOutline} from "@mui/icons-material";
+import {Close, Star, StarOutline} from "@mui/icons-material";
 import {animated, useSpring} from "@react-spring/web";
+import {useState} from "react";
 
-export const PerkCard = ({perk, isDetailed}: { perk: Perk, isDetailed: boolean}) => {
+export const PerkCard = ({perk, isDetailed, addPerk, removePerk}: { perk: Perk, isDetailed: boolean, addPerk?: (perk: Perk) => void, removePerk?:(perk: Perk) => void}) => {
 
     const standardBackgroundColour = "#ffffff";
 
@@ -13,8 +14,11 @@ export const PerkCard = ({perk, isDetailed}: { perk: Perk, isDetailed: boolean})
         return value <= perk.currentRank;
     }
 
+    //https://mui.com/material-ui/react-rating/
+
     //animation
     const [springProps, set] = useSpring(() => ({ transform: 'scale(1)' }));
+    const [isHovered, setIsHovered] = useState(false);
 
     return (
         <animated.div
@@ -22,7 +26,24 @@ export const PerkCard = ({perk, isDetailed}: { perk: Perk, isDetailed: boolean})
             onMouseEnter={() => set({transform: 'scale(1.1)'})} // Scale up on hover
             onMouseLeave={() => set({transform: 'scale(1)'})} // Scale back on mouse leave
         >
-            <Card sx={{width: 200, height: 300, display: "flex", flexDirection: "column", margin: 1}}>
+            <Card sx={{width: 200, height: 300, display: "flex", flexDirection: "column", margin: 1}}
+                  onClick={addPerk ? () => addPerk(perk) : undefined}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}>
+
+                {/* Close button to delete the perk */}
+                {removePerk && isHovered && (
+                    <IconButton
+                        sx={{ position: "absolute", top: 8, right: 8 }} // Position the button in the top-right corner
+                        onClick={(e) => {
+                            e.stopPropagation(); // Prevent click event from bubbling up to the Card
+                            removePerk(perk); // Call the delete function
+                        }}
+                    >
+                        <Close />
+                    </IconButton>
+                )}
+
                 <Box bgcolor={PrimaryCardColour(perk.special)} padding={2} height={75} display="flex"
                      alignItems="center">
                     <Grid2 container alignItems="center">

@@ -4,10 +4,20 @@ import {Perk} from "../../../interfaces/PerkInterface.tsx";
 
 import {Box, Grid2, Typography, TextField} from "@mui/material";
 import {PerkCard} from "./cards/PerkCard.tsx";
+import useLoadoutStore from "../../../stores/LoadoutsStore.tsx";
 
 export const PerkSelectionGrid = () => {
+
     const [searchTerm, setSearchTerm] = useState('');
     const [perks, setPerks] = useState<Perk[]>([]);
+    const activePerkNames = useLoadoutStore(state =>
+        state.activeLoadout?.perks)?.map((perk) => perk.name.toLowerCase() || []);
+    const addPerk = useLoadoutStore(state => state.actions.characterActions.addPerk);
+
+
+    const handlePerkClick =  async (perk: Perk) => {
+        await addPerk(perk);
+    }
 
     useEffect(() => {
         const fetchPerks = async () => {
@@ -18,7 +28,7 @@ export const PerkSelectionGrid = () => {
     }, []);
 
     const filteredOptions = perks.filter(perk =>
-        perk.name.toLowerCase().includes(searchTerm.toLowerCase())
+        perk.name.toLowerCase().includes(searchTerm.toLowerCase()) && !activePerkNames?.includes(perk.name.toLowerCase())
     );
 
     return (
@@ -37,7 +47,7 @@ export const PerkSelectionGrid = () => {
                 {filteredOptions.length > 0 ? (
                     filteredOptions.map((perk) => (
                         <Grid2 key={perk.name}>
-                            <PerkCard perk={perk} isDetailed={true} />
+                            <PerkCard perk={perk} isDetailed={true}  addPerk={handlePerkClick}/>
                         </Grid2>
                     ))
                 ) : (

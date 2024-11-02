@@ -6,6 +6,8 @@ import {WeaponBasic} from "../interfaces/WeaponInterfaces.tsx";
 import {getCurrentWeapon, setWeapon} from "../api/WeaponApiService.tsx";
 import {Specials} from "../interfaces/SpecialsInterface.tsx";
 import {changeSpecialsStats} from "../api/PlayerApiService.tsx";
+import {Perk} from "../interfaces/PerkInterface.tsx";
+import {addPerk, removePerk} from "../api/PerkApiService.tsx";
 
 interface LoadoutsStoreState {
     loadouts: Loadout[];
@@ -25,6 +27,8 @@ interface LoadoutsStoreActions {
         }
         characterActions: {
             changeSpecials: (specials: Specials) => Promise<void>;
+            addPerk: (perk: Perk) => Promise<void>;
+            removePerk: (perk: Perk) => Promise<void>;
         }
     }
 }
@@ -136,7 +140,39 @@ const useLoadoutStore = create<LoadoutsStoreState & LoadoutsStoreActions>()(
                                 console.error('Error updating specials:', error);
                             }
                         }
-                    }
+                    },
+                    addPerk: async (perkToAdd: Perk) => {
+                        const { activeLoadout } = get();
+                        if (activeLoadout && perkToAdd) {
+                            try {
+                                await addPerk(activeLoadout.loadoutID, perkToAdd);
+                                const updatedActiveLoadout = {
+                                    ...activeLoadout,
+                                    perks: [...activeLoadout.perks, perkToAdd] // Adding the new perk to the existing perks array
+                                };
+                                set(() => ({activeLoadout: updatedActiveLoadout}))
+                            } catch (error){
+                                console.error('Error updating specials:', error);
+                            }
+                        }
+                    },
+                    removePerk: async (perkToRemove: Perk) => {
+                        const { activeLoadout } = get();
+                        if (activeLoadout && perkToRemove) {
+                            try {
+
+                                await removePerk(activeLoadout.loadoutID, perkToRemove);
+                                const updatedPerks = activeLoadout.perks.filter(perk => perk.name !== perkToRemove.name);
+                                const updatedActiveLoadout = {
+                                    ...activeLoadout,
+                                    perks: updatedPerks
+                                };
+                                set(() => ({ activeLoadout: updatedActiveLoadout }));
+                            } catch (error){
+                                console.error('Error updating specials:', error);
+                            }
+                        }
+                    },
                 },
             },
         }),
