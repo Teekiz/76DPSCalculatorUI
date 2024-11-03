@@ -3,14 +3,15 @@ import WeaponSearchComponent from './weapon_components/WeaponSearchComponents.ts
 import WeaponStatsTable from './weapon_components/WeaponStatsTable.tsx';
 
 import Grid2 from '@mui/material/Grid2';
-import useLoadoutStore from "../../stores/LoadoutsStore.tsx";
+import useLoadoutStore from "../../stores/LoadoutSlice.tsx";
+import useWeaponStore from "../../stores/WeaponSlice.tsx";
 
 
 export default function EquipmentTab()
 {
     const activeLoadout = useLoadoutStore(state => state.activeLoadout);
     const currentWeapon = useLoadoutStore(state => state.activeLoadout?.weapon);
-    const changeWeapon = useLoadoutStore(state => state.actions.weaponActions.changeWeapon);
+    const changeWeapon = useWeaponStore(state => state.changeWeapon);
 
     // When the user changes the weapon, set the weapon and then update it
     const handleWeaponSelection = async (weapon: WeaponBasic) => {

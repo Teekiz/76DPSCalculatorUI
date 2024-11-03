@@ -1,6 +1,6 @@
 import {useEffect, useState, useRef} from "react";
 import {debounce} from "lodash";
-import useLoadoutStore from "../../../stores/LoadoutsStore.tsx";
+import useLoadoutStore from "../../../stores/LoadoutSlice.tsx";
 import {Specials} from "../../../interfaces/SpecialsInterface.tsx";
 
 import {
@@ -15,11 +15,12 @@ import {
     TableCell, Typography
 } from '@mui/material';
 import {ArrowCircleLeftOutlined, ArrowCircleRightOutlined } from '@mui/icons-material';
+import useCharacterStore from "../../../stores/CharacterSlice.tsx";
 
 export default function PlayerStatsForm(){
 
     const player = useLoadoutStore(state => state.activeLoadout?.player);
-    const changeSpecials = useLoadoutStore(state => state.actions.characterActions.changeSpecials)
+    const changeSpecials = useCharacterStore(state => state.changeSpecials)
     const specialAttributes: Array<keyof Specials> = ["strength", "perception", "endurance", "charisma", "intelligence", "agility", "luck"];
     const [specialsCopy, setSpecialsCopy] = useState<Specials | null>(null);
 

@@ -4,7 +4,8 @@ import {Perk} from "../../../interfaces/PerkInterface.tsx";
 
 import {Box, Grid2, Typography, TextField} from "@mui/material";
 import {PerkCard} from "./cards/PerkCard.tsx";
-import useLoadoutStore from "../../../stores/LoadoutsStore.tsx";
+import useLoadoutStore from "../../../stores/LoadoutSlice.tsx";
+import useCharacterStore from "../../../stores/CharacterSlice.tsx";
 
 export const PerkSelectionGrid = () => {
 
@@ -12,7 +13,7 @@ export const PerkSelectionGrid = () => {
     const [perks, setPerks] = useState<Perk[]>([]);
     const activePerkNames = useLoadoutStore(state =>
         state.activeLoadout?.perks)?.map((perk) => perk.name.toLowerCase() || []);
-    const addPerk = useLoadoutStore(state => state.actions.characterActions.addPerk);
+    const addPerk = useCharacterStore(state => state.addPerk);
 
 
     const handlePerkClick =  async (perk: Perk) => {
