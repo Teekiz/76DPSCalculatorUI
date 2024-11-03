@@ -1,4 +1,4 @@
-import useLoadoutStore from "../../stores/LoadoutsStore.tsx";
+import useLoadoutStore from "../../stores/LoadoutSlice.tsx";
 import {SyntheticEvent} from "react";
 
 import { Tabs, Tab, Box } from '@mui/material';
@@ -7,8 +7,8 @@ export default function LoadoutNavigationBar()
 {
     const loadouts = useLoadoutStore(state => state.loadouts);
     const activeLoadout = useLoadoutStore(state => state.activeLoadout);
-    const changeActiveLoadout = useLoadoutStore(state => state.actions.loadoutActions.changeActiveLoadout);
-    const addLoadout = useLoadoutStore(state => state.actions.loadoutActions.addLoadout);
+    const changeActiveLoadout = useLoadoutStore(state => state.changeActiveLoadout);
+    const addLoadout = useLoadoutStore(state => state.addLoadout);
 
     const handleTabClick = (_event: SyntheticEvent, loadoutID: number) => {
         changeActiveLoadout(loadoutID);

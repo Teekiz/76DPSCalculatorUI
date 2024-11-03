@@ -1,14 +1,14 @@
 import Grid2 from "@mui/material/Grid2";
-import useLoadoutStore from "../../../stores/LoadoutsStore.tsx";
+import useLoadoutStore from "../../../stores/LoadoutSlice.tsx";
 import {PerkCard} from "./cards/PerkCard.tsx";
 import {Typography} from "@mui/material";
 import {Perk} from "../../../interfaces/PerkInterface.tsx";
+import useCharacterStore from "../../../stores/CharacterSlice.tsx";
 
 export const PerkActiveGrid = () => {
 
-    //const activeLoadout = useLoadoutStore(state => state.activeLoadout);
     const perks = useLoadoutStore(state => state.activeLoadout?.perks);
-    const removePerk = useLoadoutStore(state => state.actions.characterActions.removePerk);
+    const removePerk = useCharacterStore(state => state.removePerk);
 
     const handlePerkClick =  async (perk: Perk) => {
         await removePerk(perk);
