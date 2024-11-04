@@ -8,7 +8,7 @@ function App()
     const queryClient = new QueryClient({
         defaultOptions: {
             queries: {
-                refetchOnWindowFocus: false
+                refetchOnWindowFocus: true
             }
         }
     });

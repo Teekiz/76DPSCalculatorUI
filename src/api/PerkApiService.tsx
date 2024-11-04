@@ -36,3 +36,11 @@ export const removePerk = async (loadoutID: number, perk: Perk): Promise<void> =
         console.error('Error adding perks:', error);
     }
 }
+
+export const changePerkRank = async (loadoutID: number, perk: Perk): Promise<void> => {
+    try {
+        await client.post(`/changePerkRank?loadoutID=${loadoutID}&perkName=${perk.name}&perkRank=${perk.currentRank}`);
+    } catch (error){
+        console.error('Error changing perks:', error);
+    }
+}

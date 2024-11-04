@@ -9,9 +9,16 @@ export const PerkActiveGrid = () => {
 
     const perks = useLoadoutStore(state => state.activeLoadout?.perks);
     const removePerk = useCharacterStore(state => state.removePerk);
+    const changeRank = useCharacterStore(state => state.changePerkRank);
 
     const handlePerkClick =  async (perk: Perk) => {
         await removePerk(perk);
+    }
+
+    const handleRankClick =  async (perk: Perk, newRank: number) => {
+        if (newRank !== perk.currentRank && newRank <= perk.maxRank && newRank >= 1) {
+            await changeRank(perk, newRank);
+        }
     }
 
     return (
@@ -19,7 +26,7 @@ export const PerkActiveGrid = () => {
             {perks && perks.length > 0 ? (
                 perks.map((perk) => (
                     <Grid2 key={perk.name}>
-                        <PerkCard perk={perk} isDetailed={true} removePerk={handlePerkClick} />
+                        <PerkCard perk={perk} isDetailed={true} removePerk={handlePerkClick} changeRank={handleRankClick}/>
                     </Grid2>
                 ))
             ) : (

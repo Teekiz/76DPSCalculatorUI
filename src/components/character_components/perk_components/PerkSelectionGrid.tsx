@@ -42,7 +42,7 @@ export const PerkSelectionGrid = () => {
                 {filteredOptions && filteredOptions.length > 0 ? (
                     filteredOptions.map((perk) => (
                         <Grid2 key={perk.name}>
-                            <PerkCard perk={perk} isDetailed={true}  addPerk={handlePerkClick}/>
+                            <PerkCard perk={perk} isDetailed={false}  addPerk={handlePerkClick}/>
                         </Grid2>
                     ))
                 ) : (

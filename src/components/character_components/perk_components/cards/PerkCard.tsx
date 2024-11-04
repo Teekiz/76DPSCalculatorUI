@@ -6,7 +6,12 @@ import {Close, Star, StarOutline} from "@mui/icons-material";
 import {animated, useSpring} from "@react-spring/web";
 import {useState} from "react";
 
-export const PerkCard = ({perk, isDetailed, addPerk, removePerk}: { perk: Perk, isDetailed: boolean, addPerk?: (perk: Perk) => void, removePerk?:(perk: Perk) => void}) => {
+export const PerkCard = ({perk, isDetailed, addPerk, removePerk, changeRank}: {
+    perk: Perk,
+    isDetailed: boolean,
+    addPerk?: (perk: Perk) => void,
+    removePerk?:(perk: Perk) => void
+    changeRank?:(perk: Perk, newRank: number) => void }) => {
 
     const standardBackgroundColour = "#ffffff";
 
@@ -81,7 +86,11 @@ export const PerkCard = ({perk, isDetailed, addPerk, removePerk}: { perk: Perk, 
                              justifyContent="center">
                             <ButtonGroup>
                                 {Array.from({ length: perk.maxRank }, (_, i) => (
-                                    <Button key={`rank-${perk.id}-${i + 1}`} size={"small"} aria-label={`Rank ${i + 1}`}>
+                                    <Button
+                                        key={`rank-${perk.id}-${i + 1}`}
+                                        size={"small"}
+                                        aria-label={`Rank ${i + 1}`}
+                                        onClick={() => changeRank ? changeRank(perk, i + 1) : undefined}>
                                         {rankColour(i + 1) ? <Star fontSize={"small"} /> : <StarOutline fontSize={"small"} />}
                                     </Button>
                                 ))}
