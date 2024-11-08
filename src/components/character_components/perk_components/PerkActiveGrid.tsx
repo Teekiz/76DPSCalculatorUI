@@ -4,10 +4,12 @@ import {PerkCard} from "./cards/PerkCard.tsx";
 import {Typography} from "@mui/material";
 import {Perk} from "../../../interfaces/PerkInterface.tsx";
 import useCharacterStore from "../../../stores/CharacterSlice.tsx";
+import {hasAvailableSpecialPoints} from "../../../util/PerkUtility.tsx";
 
 export const PerkActiveGrid = () => {
 
-    const perks = useLoadoutStore(state => state.activeLoadout?.perks);
+    const activeLoadout = useLoadoutStore(state => state.activeLoadout);
+    const perks = activeLoadout?.perks;
     const removePerk = useCharacterStore(state => state.removePerk);
     const changeRank = useCharacterStore(state => state.changePerkRank);
 
@@ -16,8 +18,10 @@ export const PerkActiveGrid = () => {
     }
 
     const handleRankClick =  async (perk: Perk, newRank: number) => {
-        if (newRank !== perk.currentRank && newRank <= perk.maxRank && newRank >= 1) {
+        if (activeLoadout && newRank !== perk.currentRank && newRank <= perk.maxRank && newRank >= 1 && hasAvailableSpecialPoints(perk, activeLoadout, newRank)) {
             await changeRank(perk, newRank);
+        } else {
+            console.debug("Cannot add perk, not enough points available.")
         }
     }
 
