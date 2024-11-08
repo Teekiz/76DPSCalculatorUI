@@ -1,25 +1,30 @@
 import { useState } from "react";
 import {getAllPerks} from "../../../api/PerkApiService.tsx";
 import {Perk} from "../../../interfaces/PerkInterface.tsx";
-
-import {Box, Grid2, Typography, TextField} from "@mui/material";
 import {PerkCard} from "./cards/PerkCard.tsx";
 import useLoadoutStore from "../../../stores/LoadoutSlice.tsx";
 import useCharacterStore from "../../../stores/CharacterSlice.tsx";
 import {useQuery} from "react-query";
+import {hasAvailableSpecialPoints} from "../../../util/PerkUtility.tsx";
+
+import {Box, Grid2, Typography, TextField} from "@mui/material";
 
 export const PerkSelectionGrid = () => {
 
     const [searchTerm, setSearchTerm] = useState('');
-    const activePerkNames = useLoadoutStore(state =>
-        state.activeLoadout?.perks)?.map((perk) => perk.name.toLowerCase() || []);
+
+    const activeLoadout = useLoadoutStore(state => state.activeLoadout);
+    const activePerkNames = activeLoadout?.perks?.map((perk) => perk.name.toLowerCase() || []);
     const addPerk = useCharacterStore(state => state.addPerk);
 
     const {data: perks} = useQuery<Perk[]>('perks', getAllPerks);
 
-
     const handlePerkClick =  async (perk: Perk) => {
-        await addPerk(perk);
+        if (activeLoadout && hasAvailableSpecialPoints(perk, activeLoadout)){
+            await addPerk(perk);
+        } else {
+            console.debug("Cannot add perk, not enough points available.")
+        }
     }
 
     const filteredOptions = perks?.filter(perk =>
