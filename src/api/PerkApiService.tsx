@@ -32,6 +32,7 @@ export const addPerk = async (loadoutID: number, perk: Perk): Promise<void> => {
 export const removePerk = async (loadoutID: number, perk: Perk): Promise<void> => {
     try {
         await client.post(`/removePerk?loadoutID=${loadoutID}&perkName=${perk.name}`);
+        console.log("Removed perk: ", perk.name);
     } catch (error){
         console.error('Error adding perks:', error);
     }

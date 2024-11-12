@@ -5,6 +5,8 @@ import {devtools} from "zustand/middleware";
 import {changeSpecialsStats} from "../api/PlayerApiService.tsx";
 import {addPerk, changePerkRank, removePerk} from "../api/PerkApiService.tsx";
 import useLoadoutStore from "./LoadoutSlice.tsx";
+import {changedSpecials} from "../util/PlayerUtility.tsx";
+import {getExcessPerksToRemoveFromMultipleSpecials} from "../util/PerkUtility.tsx";
 
 interface CharacterStore {
     changeSpecials: (specials: Specials) => Promise<void>;
@@ -14,13 +16,14 @@ interface CharacterStore {
 }
 
 const useCharacterStore = create<CharacterStore>()(
-    devtools(() => ({
+    devtools((_set, get) => ({
         changeSpecials: async (specials: Specials) => {
             const { activeLoadout } = useLoadoutStore.getState();
-
             if (activeLoadout && specials) {
                 try {
                     await changeSpecialsStats(activeLoadout.loadoutID, specials);
+                    const changedSpecialsList = changedSpecials(specials, activeLoadout.player.specials);
+
                     useLoadoutStore.setState((state) => ({
                         ...state,
                         activeLoadout: {
@@ -31,6 +34,15 @@ const useCharacterStore = create<CharacterStore>()(
                             }
                         }
                     }));
+
+                    //removes excessive perks once a change has taken place.
+                    const updatedActiveLoadout = useLoadoutStore.getState().activeLoadout;
+                    if (updatedActiveLoadout) {
+                        const perksToRemove = getExcessPerksToRemoveFromMultipleSpecials(updatedActiveLoadout, changedSpecialsList);
+                        perksToRemove.forEach(perk => {
+                            get().removePerk(perk);
+                        });
+                    }
                 } catch (error){
                     console.error('Error updating specials:', error);
                 }

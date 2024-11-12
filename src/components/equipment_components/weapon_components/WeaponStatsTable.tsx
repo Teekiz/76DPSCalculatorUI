@@ -42,7 +42,7 @@ export default function WeaponStatsTable({ weapon }: { weapon: RangedWeaponDetai
                                 labelId={"level-select-label"}
                                 value={level?.toString()}
                                 onChange={handleLevelChange}
-                                fullWidth>
+                                fullWidth variant={'outlined'}>
 
                                 {weapon && weapon.weaponDamageByLevel ? (
                                     Object.keys(weapon.weaponDamageByLevel).length > 0 ? (

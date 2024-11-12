@@ -57,7 +57,6 @@ export default function PlayerStatsForm(){
     //Debounce the API call
     const debouncedSpecialUpdate = useRef(
         debounce(async (updatedSpecials : Specials) => {
-            console.debug(updatedSpecials);
             await changeSpecials(updatedSpecials);
     }, 300)
     ).current;
