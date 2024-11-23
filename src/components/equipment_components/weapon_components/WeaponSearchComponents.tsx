@@ -46,7 +46,7 @@ export default function WeaponSearchComponent({
             if (cachedWeaponDetails) {
                 setHoveredWeapon(cachedWeaponDetails);
             } else {
-                const weaponDetails = await queryClient.fetchQuery<WeaponDetails>(queryKey, () => getWeaponDetails(weapon.weaponName));
+                const weaponDetails = await queryClient.fetchQuery<WeaponDetails>(queryKey, () => getWeaponDetails(weapon));
                 setHoveredWeapon(weaponDetails);
             }
         } catch (error) {

@@ -1,5 +1,5 @@
 export interface WeaponBasic {
-    weaponID: number;
+    weaponID: string;
     weaponName: string;
 }
 

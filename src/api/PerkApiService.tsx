@@ -23,7 +23,7 @@ export const getAllPerks = async (): Promise <Perk[]> => {
 
 export const addPerk = async (loadoutID: number, perk: Perk): Promise<void> => {
     try {
-        await client.post(`/addPerk?loadoutID=${loadoutID}&perkName=${perk.name}`);
+        await client.post(`/addPerk?loadoutID=${loadoutID}&perkID=${perk.id}`);
     } catch (error){
         console.error('Error adding perks:', error);
     }
@@ -31,7 +31,7 @@ export const addPerk = async (loadoutID: number, perk: Perk): Promise<void> => {
 
 export const removePerk = async (loadoutID: number, perk: Perk): Promise<void> => {
     try {
-        await client.post(`/removePerk?loadoutID=${loadoutID}&perkName=${perk.name}`);
+        await client.post(`/removePerk?loadoutID=${loadoutID}&perkID=${perk.id}`);
         console.log("Removed perk: ", perk.name);
     } catch (error){
         console.error('Error adding perks:', error);
@@ -40,7 +40,7 @@ export const removePerk = async (loadoutID: number, perk: Perk): Promise<void> =
 
 export const changePerkRank = async (loadoutID: number, perk: Perk): Promise<void> => {
     try {
-        await client.post(`/changePerkRank?loadoutID=${loadoutID}&perkName=${perk.name}&perkRank=${perk.currentRank}`);
+        await client.post(`/changePerkRank?loadoutID=${loadoutID}&perkID=${perk.id}&perkRank=${perk.currentRank}`);
     } catch (error){
         console.error('Error changing perks:', error);
     }

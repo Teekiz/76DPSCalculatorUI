@@ -1,5 +1,5 @@
 export interface Perk {
-    id: number;
+    id: string;
     name: string;
     special: string;
     currentRank: number;
