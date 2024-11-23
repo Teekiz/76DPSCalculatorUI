@@ -26,40 +26,46 @@ export default function WeaponStatsTable({ weapon }: { weapon: RangedWeaponDetai
     }
 
     return (
-
         <TableContainer component={Paper}>
             <Table>
                 <TableHead>
-                    <TableRow>{weapon ? weapon.weaponName : 'No Weapon Selected'}</TableRow>
+                    <TableRow>
+                        <TableCell colSpan={2}>
+                            {weapon ? weapon.weaponName : 'No Weapon Selected'}
+                        </TableCell>
+                    </TableRow>
                 </TableHead>
                 <TableBody>
-                    <FormControl fullWidth>
-                        <TableRow>
-                                <InputLabel id="level-select-label">{level ? 'Level ' + level : 'Set level'}</InputLabel>
-                        </TableRow>
-                        <TableRow>
-                            <Select
-                                labelId={"level-select-label"}
-                                value={level?.toString()}
-                                onChange={handleLevelChange}
-                                fullWidth variant={'outlined'}>
-
-                                {weapon && weapon.weaponDamageByLevel ? (
-                                    Object.keys(weapon.weaponDamageByLevel).length > 0 ? (
-                                        Object.entries(weapon.weaponDamageByLevel).map(([level]) => (
-                                            <MenuItem key={level} value={level}>
-                                                Level: {level}
-                                            </MenuItem>
-                                        ))
+                    <TableRow>
+                        <TableCell colSpan={2}>
+                            <FormControl fullWidth>
+                                <InputLabel id="level-select-label">
+                                    {level ? 'Level ' + level : 'Set level'}
+                                </InputLabel>
+                                <Select
+                                    labelId="level-select-label"
+                                    value={level?.toString() || ''}
+                                    onChange={handleLevelChange}
+                                    variant="outlined"
+                                    fullWidth
+                                >
+                                    {weapon && weapon.weaponDamageByLevel ? (
+                                        Object.keys(weapon.weaponDamageByLevel).length > 0 ? (
+                                            Object.entries(weapon.weaponDamageByLevel).map(([level]) => (
+                                                <MenuItem key={level} value={level}>
+                                                    Level: {level}
+                                                </MenuItem>
+                                            ))
+                                        ) : (
+                                            <MenuItem disabled>No damage available</MenuItem>
+                                        )
                                     ) : (
-                                        <MenuItem disabled>No damage available</MenuItem>
-                                    )
-                                ) : (
-                                    <MenuItem disabled>Please set weapon first</MenuItem>
-                                )}
-                            </Select>
-                        </TableRow>
-                    </FormControl>
+                                        <MenuItem disabled>Please set weapon first</MenuItem>
+                                    )}
+                                </Select>
+                            </FormControl>
+                        </TableCell>
+                    </TableRow>
                     <TableRow>
                         <TableCell>Weapon type:</TableCell>
                         <TableCell>{weapon?.weaponType || ''}</TableCell>
@@ -70,7 +76,9 @@ export default function WeaponStatsTable({ weapon }: { weapon: RangedWeaponDetai
                     </TableRow>
                     <TableRow>
                         <TableCell>Damage:</TableCell>
-                        <TableCell>{level && weapon ? (getDamageByLevel(weapon, level)) : ('')}</TableCell>
+                        <TableCell>
+                            {level && weapon ? getDamageByLevel(weapon, level) : ''}
+                        </TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>AP cost:</TableCell>

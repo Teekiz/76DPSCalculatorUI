@@ -41,7 +41,7 @@ export default function WeaponSearchComponent({
     const handleMouseEnter = async (weapon: WeaponBasic) => {
         setLoading(true);
         try {
-            const queryKey = ['weaponDetails', weapon.weaponName];
+            const queryKey = ['weaponDetails', weapon];
             const cachedWeaponDetails = queryClient.getQueryData<WeaponDetails>(queryKey);
             if (cachedWeaponDetails) {
                 setHoveredWeapon(cachedWeaponDetails);
@@ -62,11 +62,16 @@ export default function WeaponSearchComponent({
     };
 
     return (
-        <div className="d-flex align-items-start">
+        <div className="d-flex align-items-start" style={{ gap: '10px' }}>
             <Autocomplete
                 options={filteredOptions}
                 getOptionLabel={(option) => option.weaponName || ''}
-                onChange={(_event, newValue) => newValue && handleDropdownSelection(newValue)}
+                onChange={(_event, newValue) => {
+                    if (newValue) {
+                        handleDropdownSelection(newValue);
+                        setSearchTerm(''); // Clear input if needed
+                    }
+                }}
                 onInputChange={(_event, newInputValue) => setSearchTerm(newInputValue)}
                 renderInput={(params) => (
                     <TextField
@@ -77,27 +82,33 @@ export default function WeaponSearchComponent({
                     />
                 )}
                 style={{ width: menuWidth }}
-                renderOption={(props, option) => (
-                    <Box
-                        component="li"
-                        {...props}
-                        onMouseEnter={() => handleMouseEnter(option)}
-                        onMouseLeave={handleMouseLeave}
-                    >
-                        {option.weaponName}
-                    </Box>
-                )}
+                renderOption={(props, option) => {
+                    const { key, ...rest } = props;  // Destructure 'key' separately
+                    return (
+                        <Box
+                            component="li"
+                            key={key}    // Pass 'key' directly
+                            {...rest}    // Spread the remaining props
+                            onMouseEnter={() => handleMouseEnter(option)}
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            {option.weaponName}
+                        </Box>
+                    );
+                }}
                 noOptionsText="No options found"
             />
-            {/* Displays a weapon search card placeholder */}
-            <div style={{ marginLeft: '10px' }}>
-                {hoveredWeapon && !loading && (
-                    <WeaponSearchCard weapon={hoveredWeapon} />
+
+            {/* Weapon details or loading indicators */}
+            <div>
+                {loading ? (
+                    <>
+                        <PlaceholderWeaponSearchCard />
+                        <CircularProgress size={24} style={{ display: 'block', margin: '10px auto' }} />
+                    </>
+                ) : (
+                    hoveredWeapon && <WeaponSearchCard weapon={hoveredWeapon} />
                 )}
-                {loading && (
-                    <PlaceholderWeaponSearchCard />
-                )}
-                {loading && <CircularProgress size={24} />}
             </div>
         </div>
     );
