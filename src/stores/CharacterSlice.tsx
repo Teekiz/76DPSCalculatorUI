@@ -61,7 +61,7 @@ const useCharacterStore = create<CharacterStore>()(
                         }
                     }));
                 } catch (error){
-                    console.error('Error updating specials:', error);
+                    console.error('Error adding perk:', error);
                 }
             }
         },
@@ -79,7 +79,7 @@ const useCharacterStore = create<CharacterStore>()(
                         }
                     }));
                 } catch (error){
-                    console.error('Error updating specials:', error);
+                    console.error('Error removing perk:', error);
                 }
             }
         },
