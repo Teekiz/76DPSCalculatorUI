@@ -5,6 +5,8 @@ import {Typography} from "@mui/material";
 import {Perk} from "../../../interfaces/PerkInterface.tsx";
 import useCharacterStore from "../../../stores/CharacterSlice.tsx";
 import {hasAvailableSpecialPoints} from "../../../util/PerkUtility.tsx";
+import {Selectable} from "../../../interfaces/SelectableInterface.tsx";
+import {isPerk} from "../../../util/TypeguardUtility.tsx";
 
 export const PerkActiveGrid = () => {
 
@@ -13,8 +15,10 @@ export const PerkActiveGrid = () => {
     const removePerk = useCharacterStore(state => state.removePerk);
     const changeRank = useCharacterStore(state => state.changePerkRank);
 
-    const handlePerkClick =  async (perk: Perk) => {
-        await removePerk(perk);
+    const handlePerkClick =  async (perk: Selectable) => {
+        if (isPerk(perk)) {
+            await removePerk(perk);
+        }
     }
 
     const handleRankClick =  async (perk: Perk, newRank: number) => {

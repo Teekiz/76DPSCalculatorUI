@@ -6,6 +6,8 @@ import useInventoryStore from "../../../stores/InventorySlice.tsx";
 import {Consumable} from "../../../interfaces/ConsumableInterface.tsx";
 import {getAllConsumables} from "../../../api/ConsumableApiService.tsx";
 import {ConsumableCard} from "./ConsumableCard.tsx";
+import {Selectable} from "../../../interfaces/SelectableInterface.tsx";
+import {isConsumable} from "../../../util/TypeguardUtility.tsx";
 
 export const ConsumableSelectionGrid = () => {
 
@@ -17,8 +19,8 @@ export const ConsumableSelectionGrid = () => {
 
     const {data: consumables} = useQuery<Consumable[]>('consumables', getAllConsumables);
 
-    const handleConsumableClick =  async (consumable: Consumable) => {
-        if (activeLoadout){
+    const handleConsumableClick =  async (consumable: Selectable) => {
+        if (activeLoadout && isConsumable(consumable)){
             await addConsumable(consumable);
         } else {
             console.debug("Cannot add consumable.")

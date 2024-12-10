@@ -8,6 +8,8 @@ import {useQuery} from "react-query";
 import {hasAvailableSpecialPoints} from "../../../util/PerkUtility.tsx";
 
 import {Box, Grid2, Typography, TextField} from "@mui/material";
+import {Selectable} from "../../../interfaces/SelectableInterface.tsx";
+import {isPerk} from "../../../util/TypeguardUtility.tsx";
 
 export const PerkSelectionGrid = () => {
 
@@ -19,8 +21,8 @@ export const PerkSelectionGrid = () => {
 
     const {data: perks} = useQuery<Perk[]>('perks', getAllPerks);
 
-    const handlePerkClick =  async (perk: Perk) => {
-        if (activeLoadout && hasAvailableSpecialPoints(perk, activeLoadout)){
+    const handlePerkClick =  async (perk: Selectable) => {
+        if (activeLoadout && isPerk(perk) && hasAvailableSpecialPoints(perk, activeLoadout)){
             await addPerk(perk);
         } else {
             console.debug("Cannot add perk, not enough points available.")

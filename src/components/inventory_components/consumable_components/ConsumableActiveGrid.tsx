@@ -2,8 +2,9 @@ import useLoadoutStore from "../../../stores/LoadoutSlice.tsx";
 import Grid2 from "@mui/material/Grid2";
 import {Typography} from "@mui/material";
 import useInventoryStore from "../../../stores/InventorySlice.tsx";
-import {Consumable} from "../../../interfaces/ConsumableInterface.tsx";
 import {ConsumableCard} from "./ConsumableCard.tsx";
+import {Selectable} from "../../../interfaces/SelectableInterface.tsx";
+import {isConsumable} from "../../../util/TypeguardUtility.tsx";
 
 export const ConsumableActiveGrid = () => {
 
@@ -11,8 +12,10 @@ export const ConsumableActiveGrid = () => {
     const consumables = activeLoadout?.consumables;
     const removeConsumable = useInventoryStore(state => state.removeConsumable);
 
-    const handleConsumableClick = async (consumable: Consumable) => {
-        await removeConsumable(consumable);
+    const handleConsumableClick = async (consumable: Selectable) => {
+        if (isConsumable(consumable)) {
+            await removeConsumable(consumable);
+        }
     }
 
     return (
