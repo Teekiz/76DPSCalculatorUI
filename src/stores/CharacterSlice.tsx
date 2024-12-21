@@ -7,12 +7,16 @@ import {addPerk, changePerkRank, removePerk} from "../api/PerkApiService.tsx";
 import useLoadoutStore from "./LoadoutSlice.tsx";
 import {changedSpecials} from "../util/PlayerUtility.tsx";
 import {getExcessPerksToRemoveFromMultipleSpecials} from "../util/PerkUtility.tsx";
+import {Mutation} from "../interfaces/MutationInterface.tsx";
+import {addMutation, removeMutation} from "../api/MutationApiService.tsx";
 
 interface CharacterStore {
     changeSpecials: (specials: Specials) => Promise<void>;
     addPerk: (perk: Perk) => Promise<void>;
     removePerk: (perk: Perk) => Promise<void>;
     changePerkRank: (perk: Perk, rank: number) => Promise<void>;
+    addMutation: (mutation: Mutation) => Promise<void>;
+    removeMutation: (mutation: Mutation) => Promise<void>;
 }
 
 const useCharacterStore = create<CharacterStore>()(
@@ -104,6 +108,42 @@ const useCharacterStore = create<CharacterStore>()(
                     }));
                 } catch (error){
                     console.error('Error updating perks:', error);
+                }
+            }
+        },
+
+        addMutation: async (mutationToAdd: Mutation) => {
+            const { activeLoadout } = useLoadoutStore.getState();
+            if (activeLoadout && mutationToAdd) {
+                try {
+                    await addMutation(activeLoadout.loadoutID, mutationToAdd);
+                    useLoadoutStore.setState((state) => ({
+                        ...state,
+                        activeLoadout: {
+                            ...activeLoadout,
+                            mutations: [...activeLoadout.mutations, mutationToAdd]
+                        }
+                    }));
+                } catch (error){
+                    console.error('Error adding mutation:', error);
+                }
+            }
+        },
+        removeMutation: async (mutationToRemove: Mutation) => {
+            const { activeLoadout } = useLoadoutStore.getState();
+            if (activeLoadout && mutationToRemove) {
+                try {
+
+                    await removeMutation(activeLoadout.loadoutID, mutationToRemove);
+                    useLoadoutStore.setState((state) => ({
+                        ...state,
+                        activeLoadout: {
+                            ...activeLoadout,
+                            mutations: activeLoadout.perks.filter(mutation => mutation.id !== mutationToRemove.id)
+                        }
+                    }));
+                } catch (error){
+                    console.error('Error removing mutation:', error);
                 }
             }
         },
