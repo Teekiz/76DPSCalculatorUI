@@ -5,7 +5,7 @@ import {Box, Grid2, TextField, Typography} from "@mui/material";
 import useInventoryStore from "../../../stores/InventorySlice.tsx";
 import {Consumable} from "../../../interfaces/ConsumableInterface.tsx";
 import {getAllConsumables} from "../../../api/ConsumableApiService.tsx";
-import {ConsumableCard} from "./ConsumableCard.tsx";
+import {ConsumableTable} from "./ConsumableTable.tsx";
 import {Selectable} from "../../../interfaces/SelectableInterface.tsx";
 import {isConsumable} from "../../../util/TypeguardUtility.tsx";
 
@@ -45,11 +45,7 @@ export const ConsumableSelectionGrid = () => {
 
             <Grid2 container spacing={2} justifyContent="center">
                 {filteredOptions && filteredOptions.length > 0 ? (
-                    filteredOptions.map((consumable) => (
-                        <Grid2 key={consumable.name}>
-                            <ConsumableCard consumable={consumable}  addConsumable={handleConsumableClick}/>
-                        </Grid2>
-                    ))
+                    <ConsumableTable consumables={filteredOptions} handleConsumableClick={handleConsumableClick}/>
                 ) : (
                     <Grid2>
                         <Typography>No consumables found</Typography>
