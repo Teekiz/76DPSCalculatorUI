@@ -5,7 +5,7 @@ const client = ApiClient();
 
 export const changeSpecialStat = async (loadoutID: number, special: string, value: number): Promise<void> => {
     try {
-        await client.post(`/changeSpecial?loadoutID=${loadoutID}&special=${special}&value=${value}`);
+        await client.post(`/loadouts/changeSpecial?loadoutID=${loadoutID}&special=${special}&value=${value}`);
     } catch (error) {
         console.error('Error changing stats. ', error);
     }
@@ -13,7 +13,7 @@ export const changeSpecialStat = async (loadoutID: number, special: string, valu
 
 export const changeSpecialsStats = async (loadoutID: number, specials: Specials): Promise<void> => {
     try {
-        await client.post(`/changeSpecials?loadoutID=${loadoutID}`, specials);
+        await client.post(`/loadouts/changeSpecials?loadoutID=${loadoutID}`, specials);
     } catch (error) {
         console.error('Error changing stats:', error);
     }

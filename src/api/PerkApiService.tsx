@@ -6,7 +6,7 @@ const client = ApiClient();
 //used to retrieve a list of all perks.
 export const getAllPerks = async (): Promise <Perk[]> => {
     try {
-        const perkData = (await client.get<Perk[]>('/getAvailablePerks')).data;
+        const perkData = (await client.get<Perk[]>('/loadouts/getAvailablePerks')).data;
         if (Array.isArray(perkData))
         {
             console.debug('Retrieved perk data (getAllPerks):', perkData)
@@ -23,7 +23,7 @@ export const getAllPerks = async (): Promise <Perk[]> => {
 
 export const addPerk = async (loadoutID: number, perk: Perk): Promise<void> => {
     try {
-        await client.post(`/addPerk?loadoutID=${loadoutID}&perkID=${perk.id}`);
+        await client.post(`/loadouts/addPerk?loadoutID=${loadoutID}&perkID=${perk.id}`);
     } catch (error){
         console.error('Error adding perks:', error);
     }
@@ -31,7 +31,7 @@ export const addPerk = async (loadoutID: number, perk: Perk): Promise<void> => {
 
 export const removePerk = async (loadoutID: number, perk: Perk): Promise<void> => {
     try {
-        await client.post(`/removePerk?loadoutID=${loadoutID}&perkID=${perk.id}`);
+        await client.post(`/loadouts/removePerk?loadoutID=${loadoutID}&perkID=${perk.id}`);
         console.log("Removed perk: ", perk.name);
     } catch (error){
         console.error('Error adding perks:', error);
@@ -40,7 +40,7 @@ export const removePerk = async (loadoutID: number, perk: Perk): Promise<void> =
 
 export const changePerkRank = async (loadoutID: number, perk: Perk): Promise<void> => {
     try {
-        await client.post(`/changePerkRank?loadoutID=${loadoutID}&perkID=${perk.id}&perkRank=${perk.currentRank}`);
+        await client.post(`/loadouts/changePerkRank?loadoutID=${loadoutID}&perkID=${perk.id}&perkRank=${perk.currentRank}`);
     } catch (error){
         console.error('Error changing perks:', error);
     }

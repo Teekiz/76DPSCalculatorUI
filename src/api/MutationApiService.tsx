@@ -5,7 +5,7 @@ const client = ApiClient();
 
 export const getAllMutations = async (): Promise <Mutation[]> => {
     try {
-        const mutationData = (await client.get<Mutation[]>('/getAvailableMutations')).data;
+        const mutationData = (await client.get<Mutation[]>('/loadouts/getAvailableMutations')).data;
         if (Array.isArray(mutationData))
         {
             console.debug('Retrieved mutation data (getAllMutations):', mutationData)
@@ -22,7 +22,7 @@ export const getAllMutations = async (): Promise <Mutation[]> => {
 
 export const addMutation = async (loadoutID: number, mutation: Mutation): Promise<void> => {
     try {
-        await client.post(`/addMutation?loadoutID=${loadoutID}&mutationID=${mutation.id}`);
+        await client.post(`/loadouts/addMutation?loadoutID=${loadoutID}&mutationID=${mutation.id}`);
     } catch (error){
         console.error('Error adding mutation:', error);
     }
@@ -30,7 +30,7 @@ export const addMutation = async (loadoutID: number, mutation: Mutation): Promis
 
 export const removeMutation = async (loadoutID: number, mutation: Mutation): Promise<void> => {
     try {
-        await client.post(`/removeMutation?loadoutID=${loadoutID}&mutationID=${mutation.id}`);
+        await client.post(`/loadouts/removeMutation?loadoutID=${loadoutID}&mutationID=${mutation.id}`);
         console.log("Removed mutation: ", mutation.name);
     } catch (error){
         console.error('Error adding mutation:', error);

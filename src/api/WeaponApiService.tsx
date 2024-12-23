@@ -7,7 +7,7 @@ const client = ApiClient();
 //used to retrieve a list of all weapons (with the name and id).
 export const getAllWeapons = async (): Promise <WeaponBasic[]> => {
     try {
-        const weaponsData = (await client.get('/getAvailableWeapons')).data;
+        const weaponsData = (await client.get('/loadouts/getAvailableWeapons')).data;
         if (Array.isArray(weaponsData))
         {
             console.debug('Retreived weapons data (getAllWeapons):', weaponsData)
@@ -25,7 +25,7 @@ export const getAllWeapons = async (): Promise <WeaponBasic[]> => {
 // used to return the weapon currently in use.
 export const getCurrentWeapon = async (loadoutID: number): Promise<WeaponDetailsFull | null> => {
     try {
-        const weapon = (await client.get(`/getWeapon?loadoutID=${loadoutID}`)).data;
+        const weapon = (await client.get(`/loadouts/getWeapon?loadoutID=${loadoutID}`)).data;
         console.debug(weapon)
         if (weapon && isRangedWeapon(weapon))
         {
@@ -46,7 +46,7 @@ export const getCurrentWeapon = async (loadoutID: number): Promise<WeaponDetails
 //used to get some extra details of the weapon name provided.
 export const getWeaponDetails = async (weapon: WeaponBasic): Promise<WeaponDetails> => {
     try {
-        const data = (await client.get(`/getWeaponDetails?weaponID=${weapon.weaponID}`)).data;
+        const data = (await client.get(`/loadouts/getWeaponDetails?weaponID=${weapon.weaponID}`)).data;
         console.debug('Retrieved weapon data (getWeaponDetails):', data)
         return data;
     } catch (error) {
@@ -57,7 +57,7 @@ export const getWeaponDetails = async (weapon: WeaponBasic): Promise<WeaponDetai
 
 export const setWeapon = async (weapon: WeaponBasic, loadoutID: number) => {
     try {
-        await client.post(`/setWeapon?loadoutID=${loadoutID}&weaponID=${weapon.weaponID}`);
+        await client.post(`/loadouts/setWeapon?loadoutID=${loadoutID}&weaponID=${weapon.weaponID}`);
         console.debug(`Sent new weapon post: ${weapon.weaponID}, ${weapon.weaponName}, ${loadoutID}`)
     } catch (error) {
         console.error(`Error posting weapon: ${weapon.weaponID}, ${weapon.weaponName}`, error);
