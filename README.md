@@ -1,50 +1,48 @@
-# React + TypeScript + Vite
+# 76DPSCalculator (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+76DPSCalculator is a prototype damage per second calculator for the game Fallout 76.
 
-Currently, two official plugins are available:
+## Table of Contents
+1. [Prerequisites](#prerequisites)
+2. [Installation & Setup](#installation--setup)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Prerequisites
+To run this application, you need **both** the backend and frontend.
 
-## Expanding the ESLint configuration
+### **Backend**
+- [The Backend Spring Boot Application](https://github.com/Teekiz/76DPSCalculator?tab=readme-ov-file#76dpscalculator-backend)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### **Frontend - Choose One Setup Method**
+- **Using Docker**: [Docker & Docker Compose](https://www.docker.com/)  
+  **OR**
+- **Using npm**: [Node.js & npm](https://www.npmjs.com/)
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Installation & Setup
+### 1. Ensure the backend is running:
 ```
+git clone https://github.com/Teekiz/76DPSCalculator.git
+cd 76DPSCalculator
+docker-compose up -d --build
+```
+Then, proceed with setting up the frontend.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+### 2. Clone the Repository
+```
+git clone https://github.com/Teekiz/76DPSCalculatorUI.git
+```
+### 3. Starting the Application
+Using `Docker`:
+```
+docker-compose up -d --build
+```
+Using `npm`:
+```
+npm install
+npm run dev
+```
+### 4. Access the Application
+The application should be accessible at:
+```
+http://localhost:5173/
 ```
