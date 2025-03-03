@@ -1,6 +1,6 @@
 export interface WeaponBasic {
-    weaponID: string;
-    weaponName: string;
+    id: string;
+    name: string;
 }
 
 export interface WeaponDetails extends WeaponBasic{

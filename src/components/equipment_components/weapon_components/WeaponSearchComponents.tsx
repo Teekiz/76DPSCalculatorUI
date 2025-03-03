@@ -22,12 +22,12 @@ export default function WeaponSearchComponent({
     const [loading, setLoading] = useState<boolean>(false);
 
     const filteredOptions = weapons?.filter(weapon =>
-        weapon.weaponName && weapon.weaponName.toLowerCase().includes(searchTerm.toLowerCase())
+        weapon.name && weapon.name.toLowerCase().includes(searchTerm.toLowerCase())
     ) || [];
 
     //used to set the button label
     const buttonName = (): string => {
-        return weapon && weapon.weaponName.length > 1 ? 'Change weapon ' : 'Set weapon ';
+        return weapon && weapon.name.length > 1 ? 'Change weapon ' : 'Set weapon ';
     }
 
     //EVENTS
@@ -65,7 +65,7 @@ export default function WeaponSearchComponent({
         <div className="d-flex align-items-start" style={{ gap: '10px' }}>
             <Autocomplete
                 options={filteredOptions}
-                getOptionLabel={(option) => option.weaponName || ''}
+                getOptionLabel={(option) => option.name || ''}
                 onChange={(_event, newValue) => {
                     if (newValue) {
                         handleDropdownSelection(newValue);
@@ -92,7 +92,7 @@ export default function WeaponSearchComponent({
                             onMouseEnter={() => handleMouseEnter(option)}
                             onMouseLeave={handleMouseLeave}
                         >
-                            {option.weaponName}
+                            {option.name}
                         </Box>
                     );
                 }}

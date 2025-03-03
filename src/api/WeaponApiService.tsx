@@ -46,21 +46,21 @@ export const getCurrentWeapon = async (loadoutID: number): Promise<WeaponDetails
 //used to get some extra details of the weapon name provided.
 export const getWeaponDetails = async (weapon: WeaponBasic): Promise<WeaponDetails> => {
     try {
-        const data = (await client.get(`/loadouts/getWeaponDetails?weaponID=${weapon.weaponID}`)).data;
+        const data = (await client.get(`/loadouts/getWeaponDetails?weaponID=${weapon.id}`)).data;
         console.debug('Retrieved weapon data (getWeaponDetails):', data)
         return data;
     } catch (error) {
-        console.error(`Error fetching weapon: ${weapon.weaponName}`, error);
-        return {weaponID: weapon.weaponID, weaponName: weapon.weaponName, weaponType: '', damageType: '', weaponDamageByLevel: {}};
+        console.error(`Error fetching weapon: ${weapon.name}`, error);
+        return {id: weapon.id, name: weapon.name, weaponType: '', damageType: '', weaponDamageByLevel: {}};
     }
 }
 
 export const setWeapon = async (weapon: WeaponBasic, loadoutID: number) => {
     try {
-        await client.post(`/loadouts/setWeapon?loadoutID=${loadoutID}&weaponID=${weapon.weaponID}`);
-        console.debug(`Sent new weapon post: ${weapon.weaponID}, ${weapon.weaponName}, ${loadoutID}`)
+        await client.post(`/loadouts/setWeapon?loadoutID=${loadoutID}&weaponID=${weapon.id}`);
+        console.debug(`Sent new weapon post: ${weapon.id}, ${weapon.name}, ${loadoutID}`)
     } catch (error) {
-        console.error(`Error posting weapon: ${weapon.weaponID}, ${weapon.weaponName}`, error);
+        console.error(`Error posting weapon: ${weapon.id}, ${weapon.name}`, error);
     }
 }
 

@@ -31,7 +31,7 @@ export default function WeaponStatsTable({ weapon }: { weapon: RangedWeaponDetai
                 <TableHead>
                     <TableRow>
                         <TableCell colSpan={2}>
-                            {weapon ? weapon.weaponName : 'No Weapon Selected'}
+                            {weapon ? weapon.name : 'No Weapon Selected'}
                         </TableCell>
                     </TableRow>
                 </TableHead>

@@ -18,7 +18,7 @@ export default function WeaponSearchCard({weapon}: {weapon: WeaponDetails}){
         <div className="d-flex justify-content-around">
             <Card sx={{minWidth: 275}}>
                 <CardContent>
-                    <Typography variant="h5" component="div">{weapon.weaponName}</Typography>
+                    <Typography variant="h5" component="div">{weapon.name}</Typography>
                     <Typography>
                         Weapon type: {weapon.weaponType}<br/>
                         Damage type: {weapon.damageType}<br/>
