@@ -4,7 +4,7 @@ import {useState} from "react";
 import {Box, Card, IconButton, Typography} from "@mui/material";
 import {Close} from "@mui/icons-material";
 import Grid2 from "@mui/material/Grid2";
-import {Selectable} from "../../interfaces/SelectableInterface.tsx";
+import {Selectable} from "../../interfaces/SelectableInterface";
 
 export const SelectableCard = ({selectable, primaryColour, addSelectable, removeSelectable, titleContent, bodyContent}: {
 

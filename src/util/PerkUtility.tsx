@@ -1,16 +1,14 @@
-import {Perk} from "../interfaces/PerkInterface.tsx";
-import {Loadout} from "../interfaces/LoadoutInterface.tsx";
-import {Specials} from "../interfaces/SpecialsInterface.tsx";
-import {Player} from "../interfaces/PlayerInterface.tsx";
+import {Perk} from "../interfaces/PerkInterface";
+import {Loadout} from "../interfaces/LoadoutInterface";
+import {Specials} from "../interfaces/SpecialsInterface";
+import {Player} from "../interfaces/PlayerInterface";
 
 //a function used to determine if there is enough points to add a perk, if the perk is existing, it 'removes' the perk for the check
 export function hasAvailableSpecialPoints(perkToCheck: Perk, activeLoadout: Loadout, newRank? : number,): boolean {
-    if (!activeLoadout || !activeLoadout.perks || !activeLoadout.player.specials) return false;
-
     const newPerk = {...perkToCheck, currentRank: newRank || perkToCheck.currentRank};
     const availablePoints = calculatePerkPointsAvailable(newPerk.special, activeLoadout.player);
     const usedPoints = calculatePerkPointsUsed(newPerk.special, activeLoadout.perks, newPerk);
-    return availablePoints - usedPoints >= calculateSpecialCost(newPerk);
+    return (availablePoints - usedPoints) >= calculateSpecialCost(newPerk);
 }
 
 export function calculateSpecialCost(perk: Perk): number {

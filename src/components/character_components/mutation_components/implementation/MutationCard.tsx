@@ -1,8 +1,7 @@
-
-import {Selectable} from "../../../interfaces/SelectableInterface.tsx";
-import {SelectableCard} from "../../shared_components/SelectableCard.tsx";
+import {Selectable} from "../../../../interfaces/SelectableInterface";
+import {SelectableCard} from "../../../shared_components/SelectableCard";
 import {Box, Typography} from "@mui/material";
-import {Mutation} from "../../../interfaces/MutationInterface.tsx";
+import {Mutation} from "../../../../interfaces/MutationInterface";
 
 export const MutationCard = ({mutation, addMutation, removeMutation}: {
     mutation: Mutation,
