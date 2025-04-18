@@ -5,11 +5,11 @@ import {PerkCard} from "./cards/PerkCard.tsx";
 import useLoadoutStore from "../../../stores/LoadoutSlice.tsx";
 import useCharacterStore from "../../../stores/CharacterSlice.tsx";
 import {useQuery} from "react-query";
-import {hasAvailableSpecialPoints} from "../../../util/PerkUtility.tsx";
+import {hasAvailableSpecialPoints} from "../../../util/implementationUtility/PerkUtility.tsx";
 
 import {Box, Grid2, Typography, TextField} from "@mui/material";
 import {Selectable} from "../../../interfaces/SelectableInterface.tsx";
-import {isPerk} from "../../../util/TypeguardUtility.tsx";
+import {isPerk} from "../../../util/implementationUtility/TypeguardUtility.tsx";
 
 export const PerkSelectionGrid = () => {
 

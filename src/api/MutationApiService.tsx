@@ -1,5 +1,5 @@
-import ApiClient from "./ApiClient.tsx";
-import {Mutation} from "../interfaces/MutationInterface.tsx";
+import ApiClient from "./ApiClient";
+import {Mutation} from "../interfaces/MutationInterface";
 
 const client = ApiClient();
 

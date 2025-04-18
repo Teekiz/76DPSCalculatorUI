@@ -1,5 +1,5 @@
-import ApiClient from "./ApiClient.tsx";
-import {Consumable} from "../interfaces/ConsumableInterface.tsx";
+import ApiClient from "./ApiClient";
+import {Consumable} from "../interfaces/ConsumableInterface";
 
 const client = ApiClient();
 

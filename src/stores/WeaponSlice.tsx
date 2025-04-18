@@ -1,8 +1,8 @@
-import {WeaponBasic} from "../interfaces/WeaponInterfaces.tsx";
+import {WeaponBasic} from "../interfaces/WeaponInterfaces";
 import {create} from "zustand";
 import {devtools} from "zustand/middleware";
-import {getCurrentWeapon, setWeapon} from "../api/WeaponApiService.tsx";
-import useLoadoutStore from "./LoadoutSlice.tsx";
+import {getCurrentWeapon, setWeapon} from "../api/WeaponApiService";
+import useLoadoutStore from "./LoadoutSlice";
 
 interface WeaponStore {
     changeWeapon: (weapon: WeaponBasic) => Promise<void>;

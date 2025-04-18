@@ -1,5 +1,5 @@
-import ApiClient from "./ApiClient.tsx";
-import {Specials} from "../interfaces/SpecialsInterface.tsx";
+import ApiClient from "./ApiClient";
+import {Specials} from "../interfaces/SpecialsInterface";
 
 const client = ApiClient();
 

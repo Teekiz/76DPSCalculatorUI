@@ -1,5 +1,5 @@
-import ApiClient from "./ApiClient.tsx";
-import {Perk} from "../interfaces/PerkInterface.tsx";
+import ApiClient from "./ApiClient";
+import {Perk} from "../interfaces/PerkInterface";
 
 const client = ApiClient();
 

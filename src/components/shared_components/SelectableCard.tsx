@@ -1,4 +1,3 @@
-
 import {animated, useSpring} from "@react-spring/web";
 import {useState} from "react";
 import {Box, Card, IconButton, Typography} from "@mui/material";

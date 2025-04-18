@@ -1,13 +1,13 @@
 import {useState} from "react";
-import useLoadoutStore from "../../../../stores/LoadoutSlice.tsx";
+import useLoadoutStore from "../../../../stores/LoadoutSlice";
 import {useQuery} from "react-query";
 import {Box, Grid2, TextField, Typography} from "@mui/material";
-import {Selectable} from "../../../../interfaces/SelectableInterface.tsx";
-import {isMutation} from "../../../../util/TypeguardUtility.tsx";
-import useCharacterStore from "../../../../stores/CharacterSlice.tsx";
-import {Mutation} from "../../../../interfaces/MutationInterface.tsx";
-import {getAllMutations} from "../../../../api/MutationApiService.tsx";
-import {MutationCard} from "./MutationCard.tsx";
+import {Selectable} from "../../../../interfaces/SelectableInterface";
+import {isMutation} from "../../../../util/implementationUtility/TypeguardUtility";
+import useCharacterStore from "../../../../stores/CharacterSlice";
+import {Mutation} from "../../../../interfaces/MutationInterface";
+import {getAllMutations} from "../../../../api/MutationApiService";
+import {MutationCard} from "./MutationCard";
 
 export const MutationSelectionGrid = () => {
 

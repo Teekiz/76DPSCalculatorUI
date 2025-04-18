@@ -4,9 +4,9 @@ import {PerkCard} from "./cards/PerkCard.tsx";
 import {Typography} from "@mui/material";
 import {Perk} from "../../../interfaces/PerkInterface.tsx";
 import useCharacterStore from "../../../stores/CharacterSlice.tsx";
-import {hasAvailableSpecialPoints} from "../../../util/PerkUtility.tsx";
+import {hasAvailableSpecialPoints} from "../../../util/implementationUtility/PerkUtility.tsx";
 import {Selectable} from "../../../interfaces/SelectableInterface.tsx";
-import {isPerk} from "../../../util/TypeguardUtility.tsx";
+import {isPerk} from "../../../util/implementationUtility/TypeguardUtility.tsx";
 
 export const PerkActiveGrid = () => {
 

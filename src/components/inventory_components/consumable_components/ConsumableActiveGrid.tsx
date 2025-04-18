@@ -4,7 +4,7 @@ import {Typography} from "@mui/material";
 import useInventoryStore from "../../../stores/InventorySlice.tsx";
 import {ConsumableTable} from "./ConsumableTable.tsx";
 import {Selectable} from "../../../interfaces/SelectableInterface.tsx";
-import {isConsumable} from "../../../util/TypeguardUtility.tsx";
+import {isConsumable} from "../../../util/implementationUtility/TypeguardUtility.tsx";
 
 export const ConsumableActiveGrid = () => {
 

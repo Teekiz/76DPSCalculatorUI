@@ -7,7 +7,7 @@ import {Consumable} from "../../../interfaces/ConsumableInterface.tsx";
 import {getAllConsumables} from "../../../api/ConsumableApiService.tsx";
 import {ConsumableTable} from "./ConsumableTable.tsx";
 import {Selectable} from "../../../interfaces/SelectableInterface.tsx";
-import {isConsumable} from "../../../util/TypeguardUtility.tsx";
+import {isConsumable} from "../../../util/implementationUtility/TypeguardUtility.tsx";
 
 export const ConsumableSelectionGrid = () => {
 

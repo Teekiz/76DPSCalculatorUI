@@ -1,14 +1,14 @@
 import {create} from "zustand";
-import {Perk} from "../interfaces/PerkInterface.tsx";
-import {Specials} from "../interfaces/SpecialsInterface.tsx";
+import {Perk} from "../interfaces/PerkInterface";
+import {Specials} from "../interfaces/SpecialsInterface";
 import {devtools} from "zustand/middleware";
-import {changeSpecialsStats} from "../api/PlayerApiService.tsx";
-import {addPerk, changePerkRank, removePerk} from "../api/PerkApiService.tsx";
-import useLoadoutStore from "./LoadoutSlice.tsx";
-import {changedSpecials} from "../util/PlayerUtility.tsx";
-import {getExcessPerksToRemoveFromMultipleSpecials} from "../util/PerkUtility.tsx";
-import {Mutation} from "../interfaces/MutationInterface.tsx";
-import {addMutation, removeMutation} from "../api/MutationApiService.tsx";
+import {changeSpecialsStats} from "../api/PlayerApiService";
+import {addPerk, changePerkRank, removePerk} from "../api/PerkApiService";
+import useLoadoutStore from "./LoadoutSlice";
+import {changedSpecials} from "../util/implementationUtility/PlayerUtility";
+import {getExcessPerksToRemoveFromMultipleSpecials} from "../util/implementationUtility/PerkUtility";
+import {Mutation} from "../interfaces/MutationInterface";
+import {addMutation, removeMutation} from "../api/MutationApiService";
 
 interface CharacterStore {
     changeSpecials: (specials: Specials) => Promise<void>;

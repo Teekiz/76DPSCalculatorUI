@@ -1,10 +1,10 @@
-import useLoadoutStore from "../../../../stores/LoadoutSlice.tsx";
+import useLoadoutStore from "../../../../stores/LoadoutSlice";
 import Grid2 from "@mui/material/Grid2";
 import {Typography} from "@mui/material";
-import {Selectable} from "../../../../interfaces/SelectableInterface.tsx";
-import {isMutation} from "../../../../util/TypeguardUtility.tsx";
-import useCharacterStore from "../../../../stores/CharacterSlice.tsx";
-import {MutationCard} from "./MutationCard.tsx";
+import {Selectable} from "../../../../interfaces/SelectableInterface";
+import {isMutation} from "../../../../util/implementationUtility/TypeguardUtility";
+import useCharacterStore from "../../../../stores/CharacterSlice";
+import {MutationCard} from "./MutationCard";
 
 export const MutationActiveGrid = () => {
 

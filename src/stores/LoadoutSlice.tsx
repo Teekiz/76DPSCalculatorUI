@@ -1,7 +1,7 @@
 import {create} from 'zustand'
 import {devtools} from 'zustand/middleware'
-import {Loadout} from "../interfaces/LoadoutInterface.tsx";
-import {fetchAllLoadouts, fetchLoadout} from "../api/LoadoutApiService.tsx";
+import {Loadout} from "../interfaces/LoadoutInterface";
+import {fetchAllLoadouts, fetchLoadout} from "../api/LoadoutApiService";
 
 interface LoadoutsStoreState {
     loadouts: Loadout[];

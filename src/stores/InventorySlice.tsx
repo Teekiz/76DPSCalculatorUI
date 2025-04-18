@@ -1,8 +1,8 @@
-import {Consumable} from "../interfaces/ConsumableInterface.tsx";
+import {Consumable} from "../interfaces/ConsumableInterface";
 import {create} from "zustand/index";
 import {devtools} from "zustand/middleware";
-import useLoadoutStore from "./LoadoutSlice.tsx";
-import {addConsumable, removeConsumable} from "../api/ConsumableApiService.tsx";
+import useLoadoutStore from "./LoadoutSlice";
+import {addConsumable, removeConsumable} from "../api/ConsumableApiService";
 
 interface InventoryStore {
     addConsumable: (consumable: Consumable) => Promise<void>;

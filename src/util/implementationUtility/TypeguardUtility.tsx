@@ -1,7 +1,7 @@
-import {Selectable} from "../interfaces/SelectableInterface.tsx";
-import {Consumable} from "../interfaces/ConsumableInterface.tsx";
-import {Perk} from "../interfaces/PerkInterface.tsx";
-import {Mutation} from "../interfaces/MutationInterface.tsx";
+import {Selectable} from "../../interfaces/SelectableInterface";
+import {Consumable} from "../../interfaces/ConsumableInterface";
+import {Perk} from "../../interfaces/PerkInterface";
+import {Mutation} from "../../interfaces/MutationInterface";
 
 export function isConsumable(consumable: Selectable): consumable is Consumable {
     return (consumable as Consumable).consumableType !== undefined && (consumable as Consumable).addictionType !== undefined;

@@ -1,4 +1,4 @@
-import {Specials} from "../interfaces/SpecialsInterface.tsx";
+import {Specials} from "../../interfaces/SpecialsInterface";
 
 //a function to determine the specials changed between changes.
 export const changedSpecials = (newSpecials: Specials, oldSpecials: Specials): string[] => {
