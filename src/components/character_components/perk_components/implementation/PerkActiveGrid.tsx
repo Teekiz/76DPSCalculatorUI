@@ -1,12 +1,12 @@
 import Grid2 from "@mui/material/Grid2";
-import useLoadoutStore from "../../../stores/LoadoutSlice.tsx";
-import {PerkCard} from "./cards/PerkCard.tsx";
+import useLoadoutStore from "../../../../stores/LoadoutSlice";
+import {PerkCard} from "./PerkCard";
 import {Typography} from "@mui/material";
-import {Perk} from "../../../interfaces/PerkInterface.tsx";
-import useCharacterStore from "../../../stores/CharacterSlice.tsx";
-import {hasAvailableSpecialPoints} from "../../../util/implementationUtility/PerkUtility.tsx";
-import {Selectable} from "../../../interfaces/SelectableInterface.tsx";
-import {isPerk} from "../../../util/implementationUtility/TypeguardUtility.tsx";
+import {Perk} from "../../../../interfaces/PerkInterface";
+import useCharacterStore from "../../../../stores/CharacterSlice";
+import {hasAvailableSpecialPoints} from "../../../../util/implementationUtility/PerkUtility";
+import {Selectable} from "../../../../interfaces/SelectableInterface";
+import {isPerk} from "../../../../util/implementationUtility/TypeguardUtility";
 
 export const PerkActiveGrid = () => {
 
@@ -22,7 +22,8 @@ export const PerkActiveGrid = () => {
     }
 
     const handleRankClick =  async (perk: Perk, newRank: number) => {
-        if (activeLoadout && newRank !== perk.currentRank && newRank <= perk.maxRank && newRank >= 1 && hasAvailableSpecialPoints(perk, activeLoadout, newRank)) {
+        const hasEnoughPoints = hasAvailableSpecialPoints(perk, activeLoadout!, newRank);
+        if (newRank !== perk.currentRank && newRank <= perk.maxRank && newRank >= 1 && hasEnoughPoints) {
             await changeRank(perk, newRank);
         } else {
             console.debug("Cannot add perk, not enough points available.")

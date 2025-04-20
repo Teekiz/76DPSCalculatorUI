@@ -1,7 +1,7 @@
 import PlayerStatsForm from "./player_components/PlayerStatsForm.tsx";
 import Grid2 from "@mui/material/Grid2";
-import {PerkSelectionGrid} from "./perk_components/PerkSelectionGrid.tsx";
-import {PerkActiveGrid} from "./perk_components/PerkActiveGrid.tsx";
+import {PerkSelectionGrid} from "./perk_components/implementation/PerkSelectionGrid.tsx";
+import {PerkActiveGrid} from "./perk_components/implementation/PerkActiveGrid.tsx";
 import {MutationActiveGrid} from "./mutation_components/implementation/MutationActiveGrid.tsx";
 import {MutationSelectionGrid} from "./mutation_components/implementation/MutationSelectionGrid.tsx";
 

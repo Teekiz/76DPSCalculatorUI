@@ -1,15 +1,15 @@
 import { useState } from "react";
-import {getAllPerks} from "../../../api/PerkApiService.tsx";
-import {Perk} from "../../../interfaces/PerkInterface.tsx";
-import {PerkCard} from "./cards/PerkCard.tsx";
-import useLoadoutStore from "../../../stores/LoadoutSlice.tsx";
-import useCharacterStore from "../../../stores/CharacterSlice.tsx";
+import {getAllPerks} from "../../../../api/PerkApiService";
+import {Perk} from "../../../../interfaces/PerkInterface";
+import {PerkCard} from "./PerkCard";
+import useLoadoutStore from "../../../../stores/LoadoutSlice";
+import useCharacterStore from "../../../../stores/CharacterSlice";
 import {useQuery} from "react-query";
-import {hasAvailableSpecialPoints} from "../../../util/implementationUtility/PerkUtility.tsx";
+import {hasAvailableSpecialPoints} from "../../../../util/implementationUtility/PerkUtility";
 
 import {Box, Grid2, Typography, TextField} from "@mui/material";
-import {Selectable} from "../../../interfaces/SelectableInterface.tsx";
-import {isPerk} from "../../../util/implementationUtility/TypeguardUtility.tsx";
+import {Selectable} from "../../../../interfaces/SelectableInterface";
+import {isPerk} from "../../../../util/implementationUtility/TypeguardUtility";
 
 export const PerkSelectionGrid = () => {
 

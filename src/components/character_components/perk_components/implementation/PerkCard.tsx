@@ -1,10 +1,10 @@
-import {Perk} from "../../../../interfaces/PerkInterface.tsx";
-import {PrimaryCardColour, SecondaryCardColour} from "./PerkCardDetails.tsx"
+import {Perk} from "../../../../interfaces/PerkInterface";
+import {PrimaryCardColour, SecondaryCardColour} from "./PerkCardDetails"
 import {Box, Button, ButtonGroup, Typography} from "@mui/material";
 import Grid2 from "@mui/material/Grid2";
 import {Star, StarOutline} from "@mui/icons-material";
-import {SelectableCard} from "../../../shared_components/SelectableCard.tsx";
-import {Selectable} from "../../../../interfaces/SelectableInterface.tsx";
+import {SelectableCard} from "../../../shared_components/SelectableCard";
+import {Selectable} from "../../../../interfaces/SelectableInterface";
 
 export const PerkCard = ({perk, isDetailed, addPerk, removePerk, changeRank}: {
     perk: Perk;

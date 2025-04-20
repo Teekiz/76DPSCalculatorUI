@@ -21,8 +21,8 @@ export const SelectableCard = ({selectable, primaryColour, addSelectable, remove
     return (
         <animated.div
             style={springProps}
-            onMouseEnter={() => set({transform: 'scale(1.1)'})}
-            onMouseLeave={() => set({transform: 'scale(1)'})}
+            onMouseEnter={() => set.start({transform: 'scale(1.1)'})}
+            onMouseLeave={() => set.start({transform: 'scale(1)'})}
         >
             <Card sx={{width: 200, height: 300, display: "flex", flexDirection: "column", margin: 1}}
                   onClick={addSelectable ? () => addSelectable(selectable) : undefined}
@@ -32,6 +32,7 @@ export const SelectableCard = ({selectable, primaryColour, addSelectable, remove
                 {/* Close button to delete the perk */}
                 {removeSelectable && isHovered && (
                     <IconButton
+                        aria-label={`remove-${selectable.id}`}
                         sx={{ position: "absolute", top: 8, right: 8 }}
                         onClick={(e) => {
                             e.stopPropagation();

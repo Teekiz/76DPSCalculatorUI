@@ -4,7 +4,7 @@ import {Specials} from "../../interfaces/SpecialsInterface";
 import {Player} from "../../interfaces/PlayerInterface";
 
 //a function used to determine if there is enough points to add a perk, if the perk is existing, it 'removes' the perk for the check
-export function hasAvailableSpecialPoints(perkToCheck: Perk, activeLoadout: Loadout, newRank? : number,): boolean {
+export function hasAvailableSpecialPoints(perkToCheck: Perk, activeLoadout: Loadout, newRank? : number): boolean {
     const newPerk = {...perkToCheck, currentRank: newRank || perkToCheck.currentRank};
     const availablePoints = calculatePerkPointsAvailable(newPerk.special, activeLoadout.player);
     const usedPoints = calculatePerkPointsUsed(newPerk.special, activeLoadout.perks, newPerk);
