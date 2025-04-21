@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { MeleeWeaponDetails, RangedWeaponDetails, WeaponBasic, WeaponDetails } from '../../../interfaces/WeaponInterfaces.tsx';
-import { getAllWeapons, getWeaponDetails } from '../../../api/WeaponApiService.tsx';
+import { MeleeWeaponDetails, RangedWeaponDetails, WeaponBasic, WeaponDetails } from '../../../../interfaces/WeaponInterfaces.tsx';
+import { getAllWeapons, getWeaponDetails } from '../../../../api/WeaponApiService.tsx';
 import WeaponSearchCard, {PlaceholderWeaponSearchCard} from './WeaponSearchCard.tsx';
 
 import { Autocomplete, TextField, Box, CircularProgress } from '@mui/material';

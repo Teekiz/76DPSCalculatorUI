@@ -1,5 +1,5 @@
 import { useState} from 'react';
-import { RangedWeaponDetails, MeleeWeaponDetails} from '../../../interfaces/WeaponInterfaces.tsx';
+import { RangedWeaponDetails, MeleeWeaponDetails} from '../../../../interfaces/WeaponInterfaces.tsx';
 import { getRangedStatsRows, getMeleeStatsRows } from './WeaponSpecificStats.tsx';
 import { getDamageByLevel } from './WeaponMethods.tsx';
 

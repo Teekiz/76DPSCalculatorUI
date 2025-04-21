@@ -1,4 +1,4 @@
-import { WeaponDetails } from '../../../interfaces/WeaponInterfaces.tsx';
+import { WeaponDetails } from '../../../../interfaces/WeaponInterfaces';
 
 import {
     Card,
@@ -53,12 +53,12 @@ export function PlaceholderWeaponSearchCard() {
         <Box display="flex" justifyContent="center" mt={2}>
             <Card sx={{ width: '18rem', padding: 2 }}>
                 <CardContent>
-                    <Skeleton variant="text" width="60%" height={40} />
-                    <Skeleton variant="text" width="70%" height={30} sx={{ mt: 1 }} />
-                    <Skeleton variant="text" width="40%" height={30} sx={{ mt: 1 }} />
-                    <Skeleton variant="text" width="50%" height={30} sx={{ mt: 1 }} />
-                    <Skeleton variant="text" width="80%" height={30} sx={{ mt: 1 }} />
-                    <Skeleton variant="text" width="90%" height={30} sx={{ mt: 1 }} />
+                    <Skeleton data-testid="skeleton" variant="text" width="60%" height={40} />
+                    <Skeleton data-testid="skeleton" variant="text" width="70%" height={30} sx={{ mt: 1 }} />
+                    <Skeleton data-testid="skeleton" variant="text" width="40%" height={30} sx={{ mt: 1 }} />
+                    <Skeleton data-testid="skeleton" variant="text" width="50%" height={30} sx={{ mt: 1 }} />
+                    <Skeleton data-testid="skeleton" variant="text" width="80%" height={30} sx={{ mt: 1 }} />
+                    <Skeleton data-testid="skeleton" variant="text" width="90%" height={30} sx={{ mt: 1 }} />
                 </CardContent>
             </Card>
         </Box>

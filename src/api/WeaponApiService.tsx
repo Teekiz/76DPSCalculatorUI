@@ -1,6 +1,6 @@
 import ApiClient from "./ApiClient";
 import { WeaponDetails, WeaponBasic, RangedWeaponDetails, MeleeWeaponDetails, WeaponDetailsFull } from '../interfaces/WeaponInterfaces';
-import { isRangedWeapon, isMeleeWeapon } from '../components/equipment_components/weapon_components/WeaponMethods'
+import { isRangedWeapon, isMeleeWeapon } from '../components/equipment_components/weapon_components/implementation/WeaponMethods.tsx'
 
 const client = ApiClient();
 

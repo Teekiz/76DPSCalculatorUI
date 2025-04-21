@@ -1,6 +1,6 @@
 import {WeaponBasic} from "../../interfaces/WeaponInterfaces.tsx";
-import WeaponSearchComponent from './weapon_components/WeaponSearchComponents.tsx'
-import WeaponStatsTable from './weapon_components/WeaponStatsTable.tsx';
+import WeaponSearchComponent from './weapon_components/implementation/WeaponSearchComponents.tsx'
+import WeaponStatsTable from './weapon_components/implementation/WeaponStatsTable.tsx';
 
 import Grid2 from '@mui/material/Grid2';
 import useLoadoutStore from "../../stores/LoadoutSlice.tsx";
