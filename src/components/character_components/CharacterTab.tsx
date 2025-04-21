@@ -1,4 +1,4 @@
-import PlayerStatsForm from "./player_components/PlayerStatsForm.tsx";
+import PlayerStatsForm from "./player_components/implementation/PlayerStatsForm.tsx";
 import Grid2 from "@mui/material/Grid2";
 import {PerkSelectionGrid} from "./perk_components/implementation/PerkSelectionGrid.tsx";
 import {PerkActiveGrid} from "./perk_components/implementation/PerkActiveGrid.tsx";

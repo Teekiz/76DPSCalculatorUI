@@ -1,7 +1,7 @@
 import {useEffect, useState, useRef} from "react";
 import {debounce} from "lodash";
-import useLoadoutStore from "../../../stores/LoadoutSlice.tsx";
-import {Specials} from "../../../interfaces/SpecialsInterface.tsx";
+import useLoadoutStore from "../../../../stores/LoadoutSlice";
+import {Specials} from "../../../../interfaces/SpecialsInterface";
 
 import {
     IconButton,
@@ -15,7 +15,7 @@ import {
     TableCell, Typography
 } from '@mui/material';
 import {ArrowCircleLeftOutlined, ArrowCircleRightOutlined } from '@mui/icons-material';
-import useCharacterStore from "../../../stores/CharacterSlice.tsx";
+import useCharacterStore from "../../../../stores/CharacterSlice";
 
 export default function PlayerStatsForm(){
 
@@ -23,6 +23,7 @@ export default function PlayerStatsForm(){
     const changeSpecials = useCharacterStore(state => state.changeSpecials)
     const specialAttributes: Array<keyof Specials> = ["strength", "perception", "endurance", "charisma", "intelligence", "agility", "luck"];
     const [specialsCopy, setSpecialsCopy] = useState<Specials | null>(null);
+    const [tempValue, setTempValue] = useState<number | undefined>(undefined); // a value used to capture any changes from user input (without commiting it)
 
     //creates a temp copy of the players special stats
     useEffect(() => {
@@ -34,11 +35,10 @@ export default function PlayerStatsForm(){
     //called when changing the value
     const handleInputChange = (key: keyof Specials, value: number)=> {
         if (specialsCopy) {
-            if (validateValue(value)) {
-                const updatedSpecials = {...specialsCopy, [key]: value};
-                setSpecialsCopy(updatedSpecials);
-                debouncedSpecialUpdate(updatedSpecials);
-            }
+            const validValue = validateValue(value) ? value : Math.min(15, Math.max(1, value));
+            const updatedSpecials = { ...specialsCopy, [key]: validValue };
+            setSpecialsCopy(updatedSpecials);
+            debouncedSpecialUpdate(updatedSpecials);
         }
     }
 
@@ -91,8 +91,15 @@ export default function PlayerStatsForm(){
                                     </IconButton>
                                     <TextField
                                     type={"number"}
-                                    value={value}
-                                    onBlur={(e) => handleInputChange(key, Number(e.target.value))} // Commit on blur
+                                    aria-label={`Change ${key} value.`}
+                                    value={tempValue ?? value}
+                                    onChange={(e) => setTempValue(Number(e.target.value))}
+                                    onBlur={() => {
+                                        if (tempValue !== undefined){
+                                            handleInputChange(key, tempValue);
+                                            setTempValue(undefined);
+                                        }
+                                    }} // Commit on blur, resetting default back to null
                                     >
                                     </TextField>
                                     <IconButton

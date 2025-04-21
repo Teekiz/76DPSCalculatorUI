@@ -32,7 +32,7 @@ const mockAddPerk = jest.fn();
 beforeEach(() => {
     jest.clearAllMocks();
     mockUseLoadoutStore.mockImplementation((selector) =>
-        selector({ activeLoadout: { mutations: [] } })
+        selector({ activeLoadout: { perks: [] } })
     );
 });
 
