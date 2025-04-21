@@ -11,12 +11,21 @@ jest.mock('../../../../stores/LoadoutSlice', () => ({
     __esModule: true,
     default: jest.fn(),
 }));
+jest.mock('../../../../stores/CharacterSlice.tsx', () => ({
+    __esModule: true,
+    default: jest.fn(),
+}));
 jest.mock('../../../../api/MutationApiService', () => ({
     getAllMutations: jest.fn()
 }));
 
 import useLoadoutStore from '../../../../stores/LoadoutSlice';
+import useCharacterStore from '../../../../stores/CharacterSlice';
+
 const mockUseLoadoutStore = useLoadoutStore as unknown as jest.Mock;
+const mockUseCharacterStore = useCharacterStore as unknown as jest.Mock;
+
+const mockAddMutation = jest.fn();
 
 beforeEach(() => {
     mockUseLoadoutStore.mockImplementation((selector) =>
@@ -125,11 +134,33 @@ describe('MutationSelectionGrid', () => {
             expect(screen.queryByText('Mutation Three')).not.toBeInTheDocument();
         });
     });
+
+    it('add mutation', async () => {
+        mockLoadoutWithMutations([]);
+        mockAllMutations([mockMutationOne, mockMutationTwo, mockMutationThree]);
+        mockCharacterStore();
+        renderWithQueryClient(<MutationSelectionGrid />);
+
+        const mutationCard = screen.getByText('MUTATION ONE').closest('.MuiCard-root') as HTMLElement;
+        fireEvent.click(mutationCard);
+
+        await waitFor(() =>
+            expect(mockAddMutation).toHaveBeenCalledWith(mockMutationOne)
+        );
+    });
 });
 
 const mockLoadoutWithMutations = (mutations: Mutation[]) => {
     mockUseLoadoutStore.mockImplementation((selector) =>
         selector({ activeLoadout: { mutations } })
+    );
+};
+
+const mockCharacterStore = () => {
+    mockUseCharacterStore.mockImplementation((selector) =>
+        selector({
+            addMutation: mockAddMutation,
+        })
     );
 };
 

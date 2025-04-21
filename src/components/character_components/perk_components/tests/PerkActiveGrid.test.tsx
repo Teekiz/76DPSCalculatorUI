@@ -132,7 +132,7 @@ describe('PerkActiveGrid', () => {
 
         fireEvent.click(perkStarButton);
         await waitFor(() =>
-            expect(mockChangePerkRank).not.toHaveBeenCalledWith(mockPerkTwo, 1)
+            expect(mockChangePerkRank).not.toHaveBeenCalled()
         );
     });
 

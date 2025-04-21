@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import { MutationActiveGrid } from '../implementation/MutationActiveGrid';
 import { Mutation } from '../../../../interfaces/MutationInterface';
 
@@ -17,15 +17,11 @@ import useCharacterStore from '../../../../stores/CharacterSlice';
 
 const mockUseCharacterStore = useCharacterStore as unknown as jest.Mock;
 const mockUseLoadoutStore = useLoadoutStore as unknown as jest.Mock;
+
 const mockRemoveMutation = jest.fn();
 
 beforeEach(() => {
-    mockUseLoadoutStore.mockImplementation((selector) =>
-        selector({ activeLoadout: { mutations: [] } })
-    );
-    mockUseCharacterStore.mockImplementation((selector) =>
-        selector({ removeMutation: mockRemoveMutation })
-    );
+    jest.clearAllMocks();
 });
 
 describe('MutationActiveGrid', () => {
@@ -60,10 +56,36 @@ describe('MutationActiveGrid', () => {
         expect(screen.getByText('Mutation One')).toBeInTheDocument();
         expect(screen.getByText('Mutation Two')).toBeInTheDocument();
     });
+
+    it('removes mutation', async () => {
+        mockLoadoutWithMutations([mockMutationOne, mockMutationTwo]);
+        mockCharacterStore();
+        render(<MutationActiveGrid />);
+
+        const mutationCard = screen.getByText('MUTATION ONE').closest('.MuiCard-root') as HTMLElement;
+        fireEvent.mouseOver(mutationCard);
+
+        const closeButton = screen.getByLabelText('remove-' + mockMutationOne.id)
+        expect(closeButton).toBeInTheDocument();
+
+        fireEvent.click(closeButton);
+
+        await waitFor(() =>
+            expect(mockRemoveMutation).toHaveBeenCalledWith(mockMutationOne)
+        );
+    });
 });
 
 const mockLoadoutWithMutations = (mutations: Mutation[]) => {
     mockUseLoadoutStore.mockImplementation((selector) =>
         selector({ activeLoadout: { mutations } })
+    );
+};
+
+const mockCharacterStore = () => {
+    mockUseCharacterStore.mockImplementation((selector) =>
+        selector({
+            removeMutation: mockRemoveMutation,
+        })
     );
 };
