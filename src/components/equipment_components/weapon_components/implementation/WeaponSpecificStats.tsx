@@ -1,4 +1,4 @@
-import { isRangedWeapon, isMeleeWeapon } from "./WeaponMethods.tsx";
+import { isRangedWeapon, isMeleeWeapon } from "./WeaponMethods";
 
 import {TableRow, TableCell} from "@mui/material";
 

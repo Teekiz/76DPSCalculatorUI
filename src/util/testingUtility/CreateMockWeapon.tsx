@@ -1,4 +1,4 @@
-import {MeleeWeaponDetails, RangedWeaponDetails} from "../../interfaces/WeaponInterfaces";
+import {MeleeWeaponDetails, RangedWeaponDetails, WeaponBasic} from "../../interfaces/WeaponInterfaces";
 
 export const createMockWeapon = (dataTypeValue: string, damage?:{[level: number]: number}): RangedWeaponDetails | MeleeWeaponDetails | null => {
     const damageValue = damage ?? {};
@@ -9,7 +9,7 @@ export const createMockWeapon = (dataTypeValue: string, damage?:{[level: number]
             criticalBonus: 0,
             damageType: "PHYSICAL",
             dataType: dataTypeValue,
-            fireRate: 0,
+            fireRate: 10,
             id: "weapon2",
             magazineSize: 0,
             name: "Weapon Two",
@@ -32,3 +32,10 @@ export const createMockWeapon = (dataTypeValue: string, damage?:{[level: number]
     }
     return null;
 };
+
+export const createMockBasicWeapon = (name: string): WeaponBasic => {
+    return {
+        id: name,
+        name: name,
+    }
+}

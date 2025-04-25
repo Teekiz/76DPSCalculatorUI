@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { MeleeWeaponDetails, RangedWeaponDetails, WeaponBasic, WeaponDetails } from '../../../../interfaces/WeaponInterfaces.tsx';
-import { getAllWeapons, getWeaponDetails } from '../../../../api/WeaponApiService.tsx';
-import WeaponSearchCard, {PlaceholderWeaponSearchCard} from './WeaponSearchCard.tsx';
+import {useMemo, useState} from 'react';
+import { MeleeWeaponDetails, RangedWeaponDetails, WeaponBasic, WeaponDetails } from '../../../../interfaces/WeaponInterfaces';
+import { getAllWeapons, getWeaponDetails } from '../../../../api/WeaponApiService';
+import WeaponSearchCard, {PlaceholderWeaponSearchCard} from './WeaponSearchCard';
 
 import { Autocomplete, TextField, Box, CircularProgress } from '@mui/material';
 import {useQuery, useQueryClient} from "react-query";
@@ -21,9 +21,11 @@ export default function WeaponSearchComponent({
     const [hoveredWeapon, setHoveredWeapon] = useState<WeaponDetails | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
-    const filteredOptions = weapons?.filter(weapon =>
-        weapon.name && weapon.name.toLowerCase().includes(searchTerm.toLowerCase())
-    ) || [];
+    const filteredOptions = useMemo(() => {
+        return (weapons?.filter(weapon =>
+            weapon.name?.toLowerCase().includes(searchTerm.toLowerCase())
+        ) || []);
+    }, [weapons, searchTerm]);
 
     //used to set the button label
     const buttonName = (): string => {
